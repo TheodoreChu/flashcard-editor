@@ -1,0 +1,234 @@
+@import '~stylekit';
+
+body,
+html {
+  font-family: var(--sn-stylekit-sans-serif-font);
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  font-size: var(--sn-stylekit-base-font-size);
+  background-color: transparent;
+}
+
+* {
+  // To prevent gray flash when focusing input on mobile Safari
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+.sn-component {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+
+  .sk-panel {
+    flex-grow: unset;
+    width:700px;
+  }
+
+  }
+  .sk-panel-content {
+    height: inherit !important;
+
+    margin: inherit auto;
+    //width: 700px;
+}
+
+.sk-notification {
+  // Hacking sk-notification style
+  overflow: visible !important; // We need this for the dropdown menu
+  margin: 10px 0 0 0 !important;
+  padding: 28px 14px 28px 28px !important;
+}
+
+#header {
+  border-bottom: 0px;
+  //border-bottom: 1px solid var(--sn-stylekit-border-color);
+  background-color: var(--sn-stylekit-background-color);
+  color: var(--sn-stylekit-foreground-color);
+
+  min-height: 26px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+
+  margin-left: auto;
+  margin-right: auto;
+  width: 700px;
+}
+
+#content {
+  background-color: var(--sn-stylekit-contrast-background-color);
+  flex: 1;
+  padding: 0 10px;
+  display: flex;
+  justify-content: center;
+}
+
+.card-dialog {
+  width: 450px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 200;
+}
+
+.card-overlay {
+  position: fixed !important;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 100;
+}
+
+.card-list {
+  display: flex;
+  flex-direction: column;
+  width: 700px;
+}
+
+.card-edit {
+  margin: 10px 0;
+}
+
+.card-notes-row {
+  .card-section-title {
+    font-size: var(--sn-stylekit-font-size-h3);
+  }
+  .card-notes {
+    font-size: var(--sn-stylekit-base-font-size);
+    overflow: hidden;
+  }
+}
+
+// Copy notification
+.card-copy-notification {
+  position: absolute;
+  left: 50%;
+  bottom: 20px;
+  transform: translateX(-50%);
+  z-index: 200;
+
+  .sk-panel {
+    border-radius: 4px;
+    padding: 4px;
+  }
+
+  &.visible {
+    visibility: visible;
+    opacity: 1;
+    transition: opacity 200ms ease-in;
+  }
+
+  &.hidden {
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s 500ms, opacity 500ms ease-out;
+  }
+}
+
+
+/* entry default styles */
+.card-entry {
+  display: flex;
+  align-items: center;
+
+  // Collapse on mobile
+  @media screen and (max-width: 480px) {
+    .card-details {
+      flex-direction: column !important;
+      align-items: flex-start !important;
+    }
+  }
+
+  .card-details {
+    margin-bottom: 8px;
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    min-width: 0;
+
+    .card-info {
+      margin: 4px 0;
+      min-width: inherit;
+
+      .card-section-title {
+        font-size: var(--sn-stylekit-font-size-h3);
+        font-weight: bold;
+      }
+
+      .card-front {
+        font-size: var(--sn-stylekit-font-size-h1);
+        text-align: left;
+        //font-weight: bold;
+        line-height: 1.9rem;
+      }
+
+      .card-back {
+        line-height: 1.9rem;
+        font-size: var(--sn-stylekit-font-size-h1);
+        text-align: left;
+        font-weight: normal;
+        word-wrap: break-word;
+      }
+    }
+
+    .card-token-info {
+      display: flex;
+      align-items: center;
+      padding-right: 12px;
+
+      .card-token {
+        font-size: 2rem;
+        align-self: center;
+        font-weight: bold;
+        color: var(--sn-stylekit-info-color);
+        display: flex;
+        justify-content: space-between;
+        width: 8.2rem;
+        cursor: pointer;
+      }
+
+      .card-countdown {
+        padding: 0 12px;
+
+        // Countdown animation
+        #countdown {
+          transform: rotateY(-180deg) rotateZ(-90deg);
+          height: 1.8rem;
+          width: 1.8rem;
+          align-self: center;
+
+          circle {
+            stroke-dasharray: 113px;
+            stroke-dashoffset: 0px;
+            stroke-width: 4px;
+            stroke: var(--sn-stylekit-success-color);
+            fill: none;
+            animation: countdown 10s linear infinite forwards;
+          }
+        }
+      }
+    }
+  }
+
+  .card-options {
+    color: var(--sn-stylekit-contrast-foreground-color);
+    overflow: visible;
+    margin-bottom: 8px;
+    align-self: flex-start;
+
+    .sk-menu-panel {
+      position: absolute;
+      right: 0;
+      z-index: 200;
+    }
+  }
+}

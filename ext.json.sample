@@ -1,0 +1,9 @@
+{
+    "identifier": "org.standardnotes.flashcards-editor",
+    "name": "Flashcards Editor",
+    "content_type": "SN|Component",
+    "area": "editor-editor",
+    "version": "1.0.0",
+    "description": "An editor to help you study in private",
+    "url": "http://localhost:8002/dist/index.html"
+}
