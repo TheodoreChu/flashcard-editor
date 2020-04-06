@@ -117,33 +117,6 @@ html {
   }
 }
 
-// Copy notification
-.card-copy-notification {
-  position: absolute;
-  left: 50%;
-  bottom: 20px;
-  transform: translateX(-50%);
-  z-index: 200;
-
-  .sk-panel {
-    border-radius: 4px;
-    padding: 4px;
-  }
-
-  &.visible {
-    visibility: visible;
-    opacity: 1;
-    transition: opacity 200ms ease-in;
-  }
-
-  &.hidden {
-    visibility: hidden;
-    opacity: 0;
-    transition: visibility 0s 500ms, opacity 500ms ease-out;
-  }
-}
-
-
 /* entry default styles */
 .card-entry {
   display: flex;

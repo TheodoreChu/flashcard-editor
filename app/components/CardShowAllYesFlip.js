@@ -1,60 +1,37 @@
 import React from 'react';
 import CardMenu from './CardMenu';
 
-export default class CardPartView extends React.Component {
-  static defaultProps = {
-    entry: {}
-  };
-
+export default class CardShowAllNoFlip extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-        show: false
+        show: true,
+        flip: true
       };
   }
 
-  handleInputChange = event => {
-    const target = event.target;
-    const name = target.name;
-
-    this.props.onEntryChange({
-      id: this.props.id,
-      name,
-      value: target.value
-    });
-  };
-
-  onShow = () => {
-    this.onToggle();
-  };
-
-  onToggle = () => {
+  onToggleShow = () => {
     this.setState({
       show: !this.state.show
     });
-    return true
   };
-
-  onNextCard = (id) => {
-    return id+=1
-  }
 
   render() {
       // get next card
     var { front, back, notes } = this.props.entry;
-    var { id, onEdit, onRemove } = this.props;
+    var { id, onEdit, onRemove, show, flip} = this.props;
 
     return (
-        <div className="sk-notification sk-base" onClick={this.onToggle}>
+        <div className="sk-notification sk-base" onClick={this.onToggleShow}>
         <div className="card-entry">
           <div className="card-details">
             <div className="card-info">
-              <div className="card-section-title">Front: </div>
-              <div className="card-front">{front}<br></br><br></br></div>
               <div className="card-section-title">Back: </div>
+              <div className="card-front">{back}<br></br><br></br></div>
+              <div className="card-section-title">Front: </div>
               {this.state.show ? ([
-              <div className="card-back">{back}<br></br><br></br></div>
+              <div className="card-back">{front}<br></br><br></br></div>
                 ]) : (
                 <div className="hidden-text">
                   <br></br>••• ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• •••
@@ -62,7 +39,7 @@ export default class CardPartView extends React.Component {
                   <br></br>
                 </div>
                 )}
-              {this.state.show && notes && (
+              {this.state.show && !show && notes && (
                 <div className="card-notes-row">
                   <div className="card-section-title">Notes </div>
                   <div className="card-notes">{notes}</div>
@@ -79,32 +56,27 @@ export default class CardPartView extends React.Component {
         </div>
       </div>
     );
-  }/*
-  render() {    
-    const ViewEntries = ({ entries, onEdit, onRemove }) => (
-        <div className="card-list">
-          {entries.map((entry, idx) => (
-            <CardEntry
-              key={idx}
-              id={idx}
-              entry={entry}
-              onEdit={onEdit}
-              onRemove={onRemove}
-            />
-          ))}
-        </div>
-      );
-      
+  }
+/*
+  render() {
+    const { front, back, notes } = this.props.entry;
+    const { id, onEdit, onRemove } = this.props;
+
     return (
       <div className="sk-notification sk-base">
         <div className="card-entry">
           <div className="card-details">
             <div className="card-info">
               <div className="card-section-title">Front: </div>
-              <div className="card-front">{front}</div>
-              <br></br>
+              <div className="card-front">{front}<br></br><br></br></div> 
               <div className="card-section-title">Back: </div>
-              <div className="card-back">{back}</div>
+              <div className="card-back">{back}<br></br><br></br></div>
+              {notes && (
+              <div className="card-notes-row">
+                <div className="card-section-title">Notes </div>
+                <div className="card-notes">{notes}</div>
+              </div>
+              )}
             </div>
           </div>
           <div className="card-options">
@@ -114,13 +86,8 @@ export default class CardPartView extends React.Component {
             />
           </div>
         </div>
-        {notes && (
-          <div className="card-notes-row">
-            <div className="card-section-title">Notes </div>
-            <div className="card-notes">{notes}</div>
-          </div>
-        )}
       </div>
     );
-  }*/
+  }
+} */
 }

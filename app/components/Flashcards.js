@@ -6,17 +6,15 @@ import ConfirmDialog from './ConfirmDialog';
 import DataErrorAlert from './DataErrorAlert';
 import EditEntry from './EditEntry';
 
-import ViewPartCards from './ViewPartCards';
-import ViewFullCards from './ViewFullCards';
-import StudyShowMode from './StudyShowMode';
-import StudyFlipMode from './StudyFlipMode';
+import { ViewCardShowAllNoFlip, ViewCardShowAllYesFlip, ViewCardShowPartNoFlip, ViewCardShowPartYesFlip } from './ViewCards';
 
 const initialState = {
   text: '',
   entries: [],
   parseError: false,
   editCardMode: false,
-  hideMode: false,
+  show: false,
+  flip: false,
   studyFlipMode: false,
   studyShowMode: false,
   editEntry: null,
@@ -89,7 +87,6 @@ export default class Flashcards extends React.Component {
 
       return {
         editCardMode: false,
-        hideMode: false,
         editEntry: null,
         entries
       };
@@ -103,7 +100,6 @@ export default class Flashcards extends React.Component {
 
       return {
         editCardMode: false,
-        hideMode: false,
         editEntry: null,
         entries
       };
@@ -126,7 +122,6 @@ export default class Flashcards extends React.Component {
   // Event Handlers
   onAddNew = () => {
     this.setState({
-      hideMode: false,
       editCardMode: true,
       editEntry: null
     });
@@ -134,7 +129,6 @@ export default class Flashcards extends React.Component {
 
   onEdit = id => {
     this.setState(state => ({
-      hideMode: false,
       editCardMode: true,
       editEntry: {
         id,
@@ -170,17 +164,34 @@ export default class Flashcards extends React.Component {
     }
   };
 
-  onhideMode = () => {
-    if (this.state.hideMode) {
+  onFlip = () => {
+    if (this.state.flip) {
       this.setState({
-        hideMode: false,
+        flip: false,
         editCardMode: false,
         editEntry: null
       });
     }
     else {
       this.setState({
-        hideMode: true,
+        flip: true,
+        editCardMode: false,
+        editEntry: null
+      });
+    }
+  };
+
+  onShow = () => {
+    if (this.state.show) {
+      this.setState({
+        show: false,
+        editCardMode: false,
+        editEntry: null
+      });
+    }
+    else {
+      this.setState({
+        show: true,
         editCardMode: false,
         editEntry: null
       });
@@ -189,7 +200,7 @@ export default class Flashcards extends React.Component {
 
   // check if each card is hidden or shown (doesn't work yet)
   checkHideMode = () => {
-    if (this.state.hideMode) {
+    if (this.state.show) {
       state.entries.forEach((entry) => 
         {return true})
     }
@@ -203,17 +214,25 @@ export default class Flashcards extends React.Component {
         <div id="header">
           <div className="sk-button-group">
           <div className="sk-button info">
-              <div className="sk-label"> Flip Mode</div>
+              <div className="sk-label"> Study Flip </div>
             </div>
             <div className="sk-button info">
-              <div className="sk-label"> Show Mode</div>
+              <div className="sk-label"> Study Show </div>
             </div>
             <div className="sk-button info">
-              {this.state.hideMode && (
-                <div onClick={this.onhideMode} className="sk-label">Show All</div>
+              {!this.state.flip && ( // if show mode is false
+                <div onClick={this.onFlip} className="sk-label">Flip All</div>
               )}
-              {!this.state.hideMode && (
-                <div onClick={this.onhideMode} className="sk-label">Hide All</div>
+              {this.state.flip && ( // if  show mode is true 
+                <div onClick={this.onFlip} className="sk-label">Flip Back All</div>
+              )}
+            </div>
+            <div className="sk-button info">
+              {!this.state.show && ( // if show mode is false
+                <div onClick={this.onShow} className="sk-label">Show All</div>
+              )}
+              {this.state.show && ( // if  show mode is true 
+                <div onClick={this.onShow} className="sk-label">Hide All</div>
               )}
             </div>
             <div onClick={this.onAddNew} className="sk-button info">
@@ -226,29 +245,36 @@ export default class Flashcards extends React.Component {
         </div>
 
         <div id="content">
-          {this.state.studyFlipMode && ( // if study Flip Mode is on
-            <StudyFlipMode
+          {this.state.show && !this.state.editCardMode && !this.state.flip && ( // if show mode is on
+            <ViewCardShowAllNoFlip
+              flip={this.state.flip}
+              show={this.state.show}
               entries={this.state.entries}
               onEdit={this.onEdit}
               onRemove={this.onRemove}
             />
           )}
-          {this.state.studyFlipMode && ( // if study Show Mode is on
-            <StudyShowMode
+          {this.state.show && !this.state.editCardMode && this.state.flip && ( // if show mode is on
+            <ViewCardShowAllYesFlip
+              flip={this.state.flip}
+              show={this.state.show}
               entries={this.state.entries}
               onEdit={this.onEdit}
               onRemove={this.onRemove}
             />
           )}
-          {this.state.hideMode && ( // if hide mode is on
-            <ViewPartCards
+          {!this.state.show && !this.state.editCardMode && !this.state.flip && ( // if show mode is off and edit mode if off and flip mode is off
+            <ViewCardShowPartNoFlip
+              flip={this.state.flip}
+              show={this.state.show}
               entries={this.state.entries}
               onEdit={this.onEdit}
               onRemove={this.onRemove}
             />
           )}
-          {!this.state.hideMode && !this.state.editCardMode && ( // if hide mode is off and edit mode if off
-            <ViewFullCards
+          {!this.state.show && !this.state.editCardMode && this.state.flip && ( // if show mode is off and edit mode if off and flip mode is on 
+            <ViewCardShowPartYesFlip
+              show={this.state.show}
               entries={this.state.entries}
               onEdit={this.onEdit}
               onRemove={this.onRemove}
