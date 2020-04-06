@@ -1,13 +1,13 @@
 import React from 'react';
-import CardMenu from './CardMenu';
+import CardMenu from '../CardMenu';
 
-export default class CardsShowPartYesFlip extends React.Component {
+export default class CardShowPartNoFlip extends React.Component {
   constructor(props) {
     super(props);
 
     this.state = {
-        show: false,
-        flip: true,
+        show: this.props.show,
+        flip: this.props.flip,
       };
   }
 
@@ -15,25 +15,30 @@ export default class CardsShowPartYesFlip extends React.Component {
     this.setState({
       show: !this.state.show
     });
-    return true
   };
 
   render() {
       // get next card
     var { front, back, notes } = this.props.entry;
-    var { id, onEdit, onRemove, show, flip} = this.props;
-    //var { show, flip } = this.props.state
+    var { id, onEdit, onRemove, show, flip } = this.props;
+    //var { show, flip } = this.props.state;
 
     return (
         <div className="sk-notification sk-base" onClick={this.onToggleShow}>
         <div className="card-entry">
           <div className="card-details">
             <div className="card-info">
-              <div className="card-section-title">Back:</div>
-              <div className="card-front">{back}<br></br><br></br></div>
-              <div className="card-section-title">Front: </div>
+              { flip && (
+                <div className="card-section-title">Back: </div>
+              )}
+              { !flip && (
+                <div className="card-section-title">Front:</div>
+              )}
+              { !flip && (
+              <div className="card-front">{front}<br></br><br></br></div>
+              )}
               {this.state.show ? ([
-              <div className="card-back">{front}<br></br><br></br></div>
+              <div className="card-back">{back}<br></br><br></br></div>
                 ]) : (
                 <div className="hidden-text">
                   <br></br>••• ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• •••

@@ -2,11 +2,11 @@ import React from 'react';
 import update from 'immutability-helper';
 import { EditorKit, EditorKitDelegate } from 'sn-editor-kit';
 
-import ConfirmDialog from './ConfirmDialog';
-import DataErrorAlert from './DataErrorAlert';
-import EditEntry from './EditEntry';
+import ConfirmDialog from '../ConfirmDialog';
+import DataErrorAlert from '../DataErrorAlert';
+import EditEntry from '../EditEntry';
 
-import { ViewCards } from './ViewCards';
+import { ViewCards, ViewCardShowAllNoFlip, ViewCardShowAllYesFlip, ViewCardShowPartNoFlip, ViewCardShowPartYesFlip } from '../ViewCards';
 
 const initialState = {
   text: '',
@@ -165,19 +165,37 @@ export default class Flashcards extends React.Component {
   };
 
   onFlip = () => {
-    this.setState({
-      flip: !this.state.flip,
-      editCardMode: false,
-      editEntry: null
-    });
+    if (this.state.flip) {
+      this.setState({
+        flip: false,
+        editCardMode: false,
+        editEntry: null
+      });
+    }
+    else {
+      this.setState({
+        flip: true,
+        editCardMode: false,
+        editEntry: null
+      });
+    }
   };
 
   onShow = () => {
-    this.setState({
-      show: !this.state.show,
-      editCardMode: false,
-      editEntry: null
-    });
+    if (this.state.show) {
+      this.setState({
+        show: false,
+        editCardMode: false,
+        editEntry: null
+      });
+    }
+    else {
+      this.setState({
+        show: true,
+        editCardMode: false,
+        editEntry: null
+      });
+    }
   };
 
   // check if each card is hidden or shown (doesn't work yet)
@@ -227,7 +245,7 @@ export default class Flashcards extends React.Component {
         </div>
 
         <div id="content">
-          {this.state.show && !this.state.flip && !this.state.editCardMode && ( // if show mode is on and flip mode is off
+          {this.state.show && !this.state.editCardMode && !this.state.flip && ( // if show mode is on
             <ViewCards
               flip={this.state.flip}
               show={this.state.show}
@@ -236,7 +254,7 @@ export default class Flashcards extends React.Component {
               onRemove={this.onRemove}
             />
           )}
-          {this.state.show && this.state.flip && !this.state.editCardMode && ( // if show mode is on and flip mode is on
+          {this.state.show && !this.state.editCardMode && this.state.flip && ( // if show mode is on
             <ViewCards
               flip={this.state.flip}
               show={this.state.show}
@@ -245,7 +263,7 @@ export default class Flashcards extends React.Component {
               onRemove={this.onRemove}
             />
           )}
-          {!this.state.show && !this.state.flip && !this.state.editCardMode &&( // if show mode is off and flip mode is off
+          {!this.state.show && !this.state.editCardMode && !this.state.flip && ( // if show mode is off and edit mode if off and flip mode is off
             <ViewCards
               flip={this.state.flip}
               show={this.state.show}
@@ -254,7 +272,7 @@ export default class Flashcards extends React.Component {
               onRemove={this.onRemove}
             />
           )}
-          {!this.state.show && this.state.flip && !this.state.editCardMode && ( // if show mode is off and flip mode is on 
+          {!this.state.show && !this.state.editCardMode && this.state.flip && ( // if show mode is off and edit mode if off and flip mode is on 
             <ViewCards
               flip={this.state.flip}
               show={this.state.show}

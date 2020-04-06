@@ -1,5 +1,5 @@
 import React from 'react';
-import CardMenu from './CardMenu';
+import CardMenu from '../CardMenu';
 
 export default class CardShowAllNoFlip extends React.Component {
   constructor(props) {
@@ -7,7 +7,7 @@ export default class CardShowAllNoFlip extends React.Component {
 
     this.state = {
         show: true,
-        flip: false
+        flip: true
       };
   }
 
@@ -27,11 +27,11 @@ export default class CardShowAllNoFlip extends React.Component {
         <div className="card-entry">
           <div className="card-details">
             <div className="card-info">
-              <div className="card-section-title">Front: </div>
-              <div className="card-front">{front}<br></br><br></br></div>
               <div className="card-section-title">Back: </div>
+              <div className="card-front">{back}<br></br><br></br></div>
+              <div className="card-section-title">Front: </div>
               {this.state.show ? ([
-              <div className="card-back">{back}<br></br><br></br></div>
+              <div className="card-back">{front}<br></br><br></br></div>
                 ]) : (
                 <div className="hidden-text">
                   <br></br>••• ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• •••

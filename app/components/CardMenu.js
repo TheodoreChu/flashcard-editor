@@ -15,6 +15,11 @@ export default class CardMenu extends React.Component {
     });
   };
 
+  onFlip = () => {
+    this.onToggle();
+    this.props.onToggleFlip();
+  };
+
   onEdit = () => {
     this.onToggle();
     this.props.onEdit();
@@ -26,6 +31,8 @@ export default class CardMenu extends React.Component {
   };
 
   render() {
+    const {onFlip} = this.props
+
     return (
       <div className="card-menu">
         <div className="sk-button" onClick={this.onToggle}>
@@ -34,6 +41,9 @@ export default class CardMenu extends React.Component {
         {this.state.show && [
           <div className="card-overlay" onClick={this.onToggle} />,
           <div className="sk-menu-panel">
+            <div className="sk-menu-panel-row" onClick={onFlip}>
+              <div className="sk-label">Flip</div>
+            </div>
             <div className="sk-menu-panel-row" onClick={this.onEdit}>
               <div className="sk-label">Edit</div>
             </div>
