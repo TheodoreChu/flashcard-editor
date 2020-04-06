@@ -11,6 +11,37 @@ html {
   background-color: transparent;
 }
 
+#header {
+  border-bottom: 0px;
+  //border-bottom: 1px solid var(--sn-stylekit-border-color);
+  background-color: var(--sn-stylekit-background-color);
+  color: var(--sn-stylekit-foreground-color);
+
+  min-height: 26px;
+  padding: 10px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center; // flex-end;
+
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 700px;
+  .sk-button-group {
+    display: flex;
+    justify-content: space-between;
+    width: 75%;
+  }
+}
+
+#content {
+  background-color: var(--sn-stylekit-contrast-background-color);
+  flex: 1;
+  padding: 0 10px;
+  display: flex;
+  justify-content: center;
+}
+
 * {
   // To prevent gray flash when focusing input on mobile Safari
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
@@ -23,7 +54,8 @@ html {
 
   .sk-panel {
     flex-grow: unset;
-    width:700px;
+    max-width:700px;
+    width: 100%;
   }
 
   }
@@ -39,31 +71,6 @@ html {
   overflow: visible !important; // We need this for the dropdown menu
   margin: 10px 0 0 0 !important;
   padding: 28px 14px 28px 28px !important;
-}
-
-#header {
-  border-bottom: 0px;
-  //border-bottom: 1px solid var(--sn-stylekit-border-color);
-  background-color: var(--sn-stylekit-background-color);
-  color: var(--sn-stylekit-foreground-color);
-
-  min-height: 26px;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-
-  margin-left: auto;
-  margin-right: auto;
-  width: 700px;
-}
-
-#content {
-  background-color: var(--sn-stylekit-contrast-background-color);
-  flex: 1;
-  padding: 0 10px;
-  display: flex;
-  justify-content: center;
 }
 
 .card-dialog {
@@ -93,7 +100,11 @@ html {
 }
 
 .card-edit {
-  margin: 10px 0;
+  margin: 10px;// 10px 0;
+}
+
+.card-study {
+  margin: 10px;// 10px 0;
 }
 
 .card-notes-row {
@@ -138,6 +149,10 @@ html {
   display: flex;
   align-items: center;
 
+  .hidden-text {
+    text-align: center;
+  }
+
   // Collapse on mobile
   @media screen and (max-width: 480px) {
     .card-details {
@@ -158,6 +173,7 @@ html {
     .card-info {
       margin: 4px 0;
       min-width: inherit;
+      width: 100%;
 
       .card-section-title {
         font-size: var(--sn-stylekit-font-size-h3);
@@ -167,54 +183,15 @@ html {
       .card-front {
         font-size: var(--sn-stylekit-font-size-h1);
         text-align: left;
-        //font-weight: bold;
+        word-wrap: break-word;
         line-height: 1.9rem;
       }
 
       .card-back {
-        line-height: 1.9rem;
         font-size: var(--sn-stylekit-font-size-h1);
         text-align: left;
-        font-weight: normal;
         word-wrap: break-word;
-      }
-    }
-
-    .card-token-info {
-      display: flex;
-      align-items: center;
-      padding-right: 12px;
-
-      .card-token {
-        font-size: 2rem;
-        align-self: center;
-        font-weight: bold;
-        color: var(--sn-stylekit-info-color);
-        display: flex;
-        justify-content: space-between;
-        width: 8.2rem;
-        cursor: pointer;
-      }
-
-      .card-countdown {
-        padding: 0 12px;
-
-        // Countdown animation
-        #countdown {
-          transform: rotateY(-180deg) rotateZ(-90deg);
-          height: 1.8rem;
-          width: 1.8rem;
-          align-self: center;
-
-          circle {
-            stroke-dasharray: 113px;
-            stroke-dashoffset: 0px;
-            stroke-width: 4px;
-            stroke: var(--sn-stylekit-success-color);
-            fill: none;
-            animation: countdown 10s linear infinite forwards;
-          }
-        }
+        line-height: 1.9rem;
       }
     }
   }

@@ -1,7 +1,7 @@
 import React from 'react';
 import CardMenu from './CardMenu';
 
-export default class CardEntry extends React.Component {
+export default class CardFullView extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -17,10 +17,6 @@ export default class CardEntry extends React.Component {
     });
   };
 
-  onShow = () => {
-    this.onToggle();
-  };
-
   render() {
     const { front, back, notes } = this.props.entry;
     const { id, onEdit, onRemove } = this.props;
@@ -31,10 +27,15 @@ export default class CardEntry extends React.Component {
           <div className="card-details">
             <div className="card-info">
               <div className="card-section-title">Front: </div>
-              <div className="card-front">{front}</div>
-              <br></br>
+              <div className="card-front">{front}<br></br><br></br></div> 
               <div className="card-section-title">Back: </div>
-              <div className="card-back">{back}</div>
+              <div className="card-back">{back}<br></br><br></br></div>
+              {notes && (
+              <div className="card-notes-row">
+                <div className="card-section-title">Notes </div>
+                <div className="card-notes">{notes}</div>
+              </div>
+              )}
             </div>
           </div>
           <div className="card-options">
@@ -44,12 +45,6 @@ export default class CardEntry extends React.Component {
             />
           </div>
         </div>
-        {notes && (
-          <div className="card-notes-row">
-            <div className="card-section-title">Notes </div>
-            <div className="card-notes">{notes}</div>
-          </div>
-        )}
       </div>
     );
   }

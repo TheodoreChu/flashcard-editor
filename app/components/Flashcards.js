@@ -1,19 +1,26 @@
 import React from 'react';
 import update from 'immutability-helper';
-import EditEntry from './EditEntry';
-import ViewEntries from './ViewEntries';
+import { EditorKit, EditorKitDelegate } from 'sn-editor-kit';
+
 import ConfirmDialog from './ConfirmDialog';
 import DataErrorAlert from './DataErrorAlert';
-import { EditorKit, EditorKitDelegate } from 'sn-editor-kit';
+import EditEntry from './EditEntry';
+
+import ViewPartCards from './ViewPartCards';
+import ViewFullCards from './ViewFullCards';
+import StudyShowMode from './StudyShowMode';
+import StudyFlipMode from './StudyFlipMode';
 
 const initialState = {
   text: '',
   entries: [],
   parseError: false,
-  editMode: false,
+  editCardMode: false,
+  hideMode: false,
+  studyFlipMode: false,
+  studyShowMode: false,
   editEntry: null,
-  confirmRemove: false,
-  displayCopy: false
+  confirmRemove: false
 };
 
 export default class Flashcards extends React.Component {
@@ -81,7 +88,8 @@ export default class Flashcards extends React.Component {
       this.saveNote(entries);
 
       return {
-        editMode: false,
+        editCardMode: false,
+        hideMode: false,
         editEntry: null,
         entries
       };
@@ -94,7 +102,8 @@ export default class Flashcards extends React.Component {
       this.saveNote(entries);
 
       return {
-        editMode: false,
+        editCardMode: false,
+        hideMode: false,
         editEntry: null,
         entries
       };
@@ -117,14 +126,16 @@ export default class Flashcards extends React.Component {
   // Event Handlers
   onAddNew = () => {
     this.setState({
-      editMode: true,
+      hideMode: false,
+      editCardMode: true,
       editEntry: null
     });
   };
 
   onEdit = id => {
     this.setState(state => ({
-      editMode: true,
+      hideMode: false,
+      editCardMode: true,
       editEntry: {
         id,
         entry: state.entries[id]
@@ -135,7 +146,7 @@ export default class Flashcards extends React.Component {
   onCancel = () => {
     this.setState({
       confirmRemove: false,
-      editMode: false,
+      editCardMode: false,
       editEntry: null
     });
   };
@@ -159,20 +170,30 @@ export default class Flashcards extends React.Component {
     }
   };
 
-  /*onCopyToken = () => {
-    this.setState({
-      displayCopy: true
-    });
-    if (this.clearTooltipTimer) {
-      clearTimeout(this.clearTooltipTimer);
-    }
-
-    this.clearTooltipTimer = setTimeout(() => {
+  onhideMode = () => {
+    if (this.state.hideMode) {
       this.setState({
-        displayCopy: false
+        hideMode: false,
+        editCardMode: false,
+        editEntry: null
       });
-    }, 2000);
-  };*/
+    }
+    else {
+      this.setState({
+        hideMode: true,
+        editCardMode: false,
+        editEntry: null
+      });
+    }
+  };
+
+  // check if each card is hidden or shown (doesn't work yet)
+  checkHideMode = () => {
+    if (this.state.hideMode) {
+      state.entries.forEach((entry) => 
+        {return true})
+    }
+  }
 
   render() {
     const editEntry = this.state.editEntry || {};
@@ -181,30 +202,69 @@ export default class Flashcards extends React.Component {
         {this.state.parseError && <DataErrorAlert />}
         <div id="header">
           <div className="sk-button-group">
+          <div className="sk-button info">
+              <div className="sk-label"> Flip Mode</div>
+            </div>
+            <div className="sk-button info">
+              <div className="sk-label"> Show Mode</div>
+            </div>
+            <div className="sk-button info">
+              {this.state.hideMode && (
+                <div onClick={this.onhideMode} className="sk-label">Show All</div>
+              )}
+              {!this.state.hideMode && (
+                <div onClick={this.onhideMode} className="sk-label">Hide All</div>
+              )}
+            </div>
             <div onClick={this.onAddNew} className="sk-button info">
               <div className="sk-label">Add New</div>
+            </div>
+            <div className="sk-button info">
+              <div className="sk-label">Settings</div>
             </div>
           </div>
         </div>
 
         <div id="content">
-          {this.state.editMode ? (
+          {this.state.studyFlipMode && ( // if study Flip Mode is on
+            <StudyFlipMode
+              entries={this.state.entries}
+              onEdit={this.onEdit}
+              onRemove={this.onRemove}
+            />
+          )}
+          {this.state.studyFlipMode && ( // if study Show Mode is on
+            <StudyShowMode
+              entries={this.state.entries}
+              onEdit={this.onEdit}
+              onRemove={this.onRemove}
+            />
+          )}
+          {this.state.hideMode && ( // if hide mode is on
+            <ViewPartCards
+              entries={this.state.entries}
+              onEdit={this.onEdit}
+              onRemove={this.onRemove}
+            />
+          )}
+          {!this.state.hideMode && !this.state.editCardMode && ( // if hide mode is off and edit mode if off
+            <ViewFullCards
+              entries={this.state.entries}
+              onEdit={this.onEdit}
+              onRemove={this.onRemove}
+            />
+          )}
+          {this.state.editCardMode && (
             <EditEntry
               id={editEntry.id}
               entry={editEntry.entry}
               onSave={this.onSave}
               onCancel={this.onCancel}
             />
-          ) : (
-            <ViewEntries
-              entries={this.state.entries}
-              onEdit={this.onEdit}
-              onRemove={this.onRemove}
-            />
           )}
           {this.state.confirmRemove && (
             <ConfirmDialog
-              title={`Remove ${editEntry.entry.service}`}
+              title={`Remove ${editEntry.entry.front}`}
               message="Are you sure you want to remove this card?"
               onConfirm={() => this.removeEntry(editEntry.id)}
               onCancel={this.onCancel}

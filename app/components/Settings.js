@@ -1,10 +1,12 @@
 import React from 'react';
 
-export default class EditEntry extends React.Component {
+export default class Settings extends React.Component {
   static defaultProps = {
     entry: {
-      "forward": "true",
-      "reverse": "true"
+    // "card-type": "settings" or "card"
+    // "intervals": "60, 600, 3600, 86444" (1 minute, 10 minutes, 1 hour, 1 day, )
+    // Allow for custom fields
+    
     }
   };
 
@@ -41,7 +43,7 @@ export default class EditEntry extends React.Component {
         <div className="sk-panel-content">
           <div className="sk-panel-section">
             <div className="sk-panel-section-title sk-panel-row">
-              {id != null ? 'Edit card' : 'Add new card'}
+              {id != null ? 'Edit Settings' : 'Configure Settings'}
             </div>
             <form onSubmit={this.onSave}>
               <input

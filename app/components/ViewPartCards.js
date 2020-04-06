@@ -1,10 +1,10 @@
 import React from 'react';
-import CardEntry from './CardEntry';
+import CardPartView from './CardPartView';
 
-const ViewEntries = ({ entries, onEdit, onRemove }) => (
+const ViewPartCards = ({ entries, onEdit, onRemove }) => (
   <div className="card-list">
     {entries.map((entry, idx) => (
-      <CardEntry
+      <CardPartView
         key={idx}
         id={idx}
         entry={entry}
@@ -15,4 +15,4 @@ const ViewEntries = ({ entries, onEdit, onRemove }) => (
   </div>
 );
 
-export default ViewEntries;
+export default ViewPartCards;
