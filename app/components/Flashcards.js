@@ -19,8 +19,8 @@ const initialState = {
   flip: false,
   studyFlip: false,
   studyShow: false,
-  studyCardList: [], //list of IDS
-  studyCardID: 0,
+  studyCardList: [0], //list of IDS
+  studyCardID: 0, // the ID of the study card (which is not necessarily its corresponding index in the study card list)
   viewMode: true,
   editEntry: null,
   confirmRemove: false,
@@ -271,7 +271,7 @@ export default class Flashcards extends React.Component {
       for (var i = 0; i < this.state.entries.length; i++){
         temporaryList.push(i); 
       }
-      this.onShow();
+      //this.onShow();
       
       //var temporaryList = Array.from(Array(this.state.entries.length - 1).keys())
       var currentIndex = temporaryList.length, temporaryValue, randomIndex;
@@ -288,26 +288,20 @@ export default class Flashcards extends React.Component {
         temporaryList[currentIndex] = temporaryList[randomIndex];
         temporaryList[randomIndex] = temporaryValue;
       };
+      const firstID = Number(temporaryList[0]);
       this.setState({
         studyCardList: temporaryList,
-      });
-      //const firstID = Number(temporaryList[0]);
-      const firstID = this.state.studyCardList[0];
-      //const newID = Number(firstID.trim());
-      this.setState({
         studyCardID: firstID,
       });
-      this.onFlip();
-      //return temporaryList
     }
   }
 
-  // to be deleted
+  // this is the basic version, without randomness
   onNextCardOld = () => {
     //const newIDCounter = this.state.studyCardID + 1
     // the last ID should be one less than the length because IDs start at zero
     // if the id is one less than the length, then start over with a randomized list
-    if (this.state.studyCardID == this.state.entries.length - 1 ) { 
+    if (this.state.studyCardID === this.state.entries.length - 1 ) { 
       //const newID = this.studyCardList[0]
       //const temporaryList = this.randomizeStudyList; // which is equal to this.state.studyCardList
       //const randomNewID = this.state.studyCardList[0]
@@ -329,26 +323,23 @@ export default class Flashcards extends React.Component {
   }
   
   onNextCard = () => {
-    // the last ID should be one less than the length because IDs start at zero
-    // if the id is one less than the length, then start over with a randomized list
+    // the last ID is the 
     //if (this.state.studyCardID == this.state.entries.length - 1 ) {
-    const lastCardID = this.state.studyCardList.length - 1; // last index of studyCardList
-    if (this.state.studyCardID === lastCardID) {
+    const currentIndex = this.state.studyCardList.indexOf(this.state.studyCardID);
+    const lastIndex = this.state.studyCardList.length - 1; // last index of studyCardList
+    if (currentIndex === lastIndex) {
       this.onRandomizeStudyList();
-      //const newID = this.studyCardList[0];
-      //const randomNewID = this.state.studyCardList[0]
-      //const newID = 0
       this.setState({
-        //studyCardID: newID,
-        confirmRestart: true
+        confirmRestart: true // if all cards studied, ask if you want to start over
       });
     }
+    
     //otherwise, add one add one and continue
     else {
-      const newIDCounter = this.state.studyCardID + 1;
-      const newID = this.state.studyCardList[newIDCounter];
+      const nextIndex = currentIndex + 1;
+      const nextCardID = this.state.studyCardList[nextIndex];
       this.setState({
-        studyCardID: newID,
+        studyCardID: nextCardID,
       });
     }
   }
@@ -376,7 +367,6 @@ export default class Flashcards extends React.Component {
 
   render() {
     const editEntry = this.state.editEntry || {};
-    const list = [0, 1, 2];
     //this.onRandomizeStudyList();
     //let cardsList = this.state.entries.filter(entry => this.state.entries.indexOf(entry) > 0);
     return (
@@ -427,9 +417,12 @@ export default class Flashcards extends React.Component {
         </div>
 
         <div id="content">
-          <div>{this.state.studyCardList}<br></br><br></br>{list}<br></br>
-          <br></br>zero: {this.state.studyCardList[0]}, one: {this.state.studyCardList[1]}, two: {this.state.studyCardList[2]}<br></br>
+          <div>{this.state.studyCardList}<br></br><br></br>
+          <br></br>zero: {this.state.studyCardList[0]}, one: {this.state.studyCardList[1]}, two: {this.state.studyCardList[2]}, three: {this.state.studyCardList[3]}<br></br>
+          <br></br>studyCard: {this.state.studyCardList[this.state.studyCardID]}
           <br></br>studyCardID: {this.state.studyCardID}
+          <br></br>next card: {this.state.studyCardList[this.state.studyCardID + 1]}
+          <br></br>next id: {this.state.studyCardID + 1}
           </div>
         {this.state.studyFlip && !this.state.editCardMode && ( // if show mode is on and flip mode is off
             <ViewStudyMode

@@ -16,10 +16,10 @@ const ConfirmDialog = ({ title, message, onConfirm, onCancel }) => (
       <div className="sk-panel-footer">
         <div className="sk-button-group stretch">
           <div className="sk-button neutral" onClick={onCancel}>
-            <div className="sk-label">Cancel</div>
+            <div className="sk-label">No</div>
           </div>
           <div className="sk-button info" onClick={onConfirm}>
-            <div className="sk-label">Confirm</div>
+            <div className="sk-label">Yes</div>
           </div>
         </div>
       </div>
