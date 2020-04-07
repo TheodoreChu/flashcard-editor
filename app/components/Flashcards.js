@@ -23,7 +23,9 @@ const initialState = {
   studyCardID: 0,
   viewMode: true,
   editEntry: null,
-  confirmRemove: false
+  confirmRemove: false,
+  confirmRestart: false,
+  typeof: '',
 };
 
 export default class Flashcards extends React.Component {
@@ -260,73 +262,110 @@ export default class Flashcards extends React.Component {
       this.state.entries[currentIndex] = this.state.entries[randomIndex];
       this.state.entries[randomIndex] = temporaryValue;
       this.editEntry({ randomIndex, temporaryValue });
-    }
-    this.setState({
-      studyCardID: 0
-    })
+    };
   }
 
   // this isn't working!!!
-  onRandomizeStudyList() {
-    this.onShow;/*
-    var temporaryList = []
-    for(var i = 0; i < this.state.entries.length; i++){
-      temporaryList.push(i); 
-    }
+  onRandomizeStudyList = () => {
+    if (this.state.entries != 0) {
+      var temporaryList = [];
+      for (var i = 0; i < this.state.entries.length; i++){
+        temporaryList.push(i); 
+      }
+      this.onShow();
+      
+      //var temporaryList = Array.from(Array(this.state.entries.length - 1).keys())
+      var currentIndex = temporaryList.length, temporaryValue, randomIndex;
+      
+      // While there remain elements to shuffle...
+      while (0 !== currentIndex) {
     
-    /*
-    //var temporaryList = Array.from(Array(this.state.entries.length - 1).keys())
-    var currentIndex = temporaryList.length, temporaryValue, randomIndex;
-
-    // While there remain elements to shuffle...
-    while (0 !== currentIndex) {
-  
-      // Pick a remaining element...
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex -= 1;
-  
-      // And swap it with the current element.
-      temporaryValue = temporaryList[currentIndex];
-      temporaryList[currentIndex] = temporaryList[randomIndex];
-      temporaryList[randomIndex] = temporaryValue;
-      // add the swap to the state
-      //temporaryList.push(this.state.entries[randomIndex].id)
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+    
+        // And swap it with the current element.
+        temporaryValue = temporaryList[currentIndex];
+        temporaryList[currentIndex] = temporaryList[randomIndex];
+        temporaryList[randomIndex] = temporaryValue;
+      };
+      this.setState({
+        studyCardList: temporaryList,
+      });
+      //const firstID = Number(temporaryList[0]);
+      const firstID = this.state.studyCardList[0];
+      //const newID = Number(firstID.trim());
+      this.setState({
+        typeof: type,
+        studyCardID: firstID,
+      });
+      this.onFlip();
+      //return temporaryList
     }
-    this.setState({
-      studyCardID: 0
-    })
-    this.setState({
-      studyCardList: temporaryList
-    })
-    this.onShow;
-    return temporaryList*/
   }
 
-  onNextCard = () => {
+  // to be deleted
+  onNextCardOld = () => {
     //const newIDCounter = this.state.studyCardID + 1
-  //  this.setState({
-  //     studyCardID: newID
-  //  })
     // the last ID should be one less than the length because IDs start at zero
     // if the id is one less than the length, then start over with a randomized list
     if (this.state.studyCardID == this.state.entries.length - 1 ) { 
       //const newID = this.studyCardList[0]
       //const temporaryList = this.randomizeStudyList; // which is equal to this.state.studyCardList
       //const randomNewID = this.state.studyCardList[0]
-      const newID = 0
+      const newID = 0;
       this.setState({
         studyCardID: newID,
-      })
+        confirmRestart: true,
+      });
     }
     //otherwise, add one add one and continue
     else {
-      const newID = this.state.studyCardID + 1
+      const newID = this.state.studyCardID + 1;
       //const newID = this.state.studyCardList[newIDCounter]
       this.setState({
         studyCardID: newID,
-      })
+      });
     }
     //this.onShow();
+  }
+  
+  onNextCard = () => {
+    // the last ID should be one less than the length because IDs start at zero
+    // if the id is one less than the length, then start over with a randomized list
+    //if (this.state.studyCardID == this.state.entries.length - 1 ) {
+    const lastCardID = this.state.studyCardList.length - 1; // last index of studyCardList
+    if (this.state.studyCardID === lastCardID) {
+      this.onRandomizeStudyList();
+      //const newID = this.studyCardList[0];
+      //const randomNewID = this.state.studyCardList[0]
+      //const newID = 0
+      this.setState({
+        //studyCardID: newID,
+        confirmRestart: true
+      });
+    }
+    //otherwise, add one add one and continue
+    else {
+      const newIDCounter = this.state.studyCardID + 1;
+      const newID = this.state.studyCardList[newIDCounter];
+      this.setState({
+        studyCardID: newID,
+      });
+    }
+  }
+
+  onStudyMore = () => {
+    this.setState({
+      confirmRestart: false,
+    });
+  }
+
+  onStopStudy = () => {
+    this.onShow();
+    this.setState({
+      confirmRestart: false,
+    });
   }
 
   // check if each card is hidden or shown (doesn't work yet)
@@ -339,6 +378,9 @@ export default class Flashcards extends React.Component {
 
   render() {
     const editEntry = this.state.editEntry || {};
+    const list = [0, 1, 2];
+    //var type = typeOf(this.state.studyCardList[0])
+    //this.onRandomizeStudyList();
     //let cardsList = this.state.entries.filter(entry => this.state.entries.indexOf(entry) > 0);
     return (
       <div className="sn-component">
@@ -388,6 +430,10 @@ export default class Flashcards extends React.Component {
         </div>
 
         <div id="content">
+          <div>{this.state.studyCardList}<br></br><br></br>{list}<br></br>
+          <br></br>zero: {this.state.studyCardList[0]}, one: {this.state.studyCardList[1]}, two: {this.state.studyCardList[2]}<br></br>
+          <br></br>studyCardID: {this.state.studyCardID}
+          </div>
         {this.state.studyFlip && !this.state.editCardMode && ( // if show mode is on and flip mode is off
             <ViewStudyMode
               id={this.state.studyCardID}
@@ -472,6 +518,14 @@ export default class Flashcards extends React.Component {
               message="Are you sure you want to remove this card?"
               onConfirm={() => this.removeEntry(editEntry.id)}
               onCancel={this.onCancel}
+            />
+          )}
+          {this.state.confirmRestart && (
+            <ConfirmDialog
+              title={`You have studied all the cards.`}
+              message="Would you like to start over?"
+              onConfirm={this.onStudyMore}
+              onCancel={this.onStopStudy}
             />
           )}
         </div>
