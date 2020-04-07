@@ -145,7 +145,10 @@ html {
     .card-info {
       min-width: inherit;
       width: 100%;
-
+      .next-card {
+        min-width: inherit;
+        width: 100%;
+      }
       .card-section-title {
         font-size: var(--sn-stylekit-font-size-h3);
         font-weight: bold;

@@ -15,11 +15,6 @@ export default class CardMenu extends React.Component {
     });
   };
 
-  onFlip = () => {
-    this.onToggle();
-    this.props.onToggleFlip();
-  };
-
   onEdit = () => {
     this.onToggle();
     this.props.onEdit();

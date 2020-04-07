@@ -7,6 +7,7 @@ import DataErrorAlert from './DataErrorAlert';
 import EditEntry from './EditEntry';
 
 import { ViewCards } from './ViewCards';
+import ViewStudyMode from './ViewStudyMode'
 
 const initialState = {
   text: '',
@@ -15,8 +16,10 @@ const initialState = {
   editCardMode: false,
   show: false,
   flip: false,
-  studyFlipMode: false,
-  studyShowMode: false,
+  studyFlip: false,
+  studyShow: false,
+  studyCardID: 0,
+  viewMode: true,
   editEntry: null,
   confirmRemove: false
 };
@@ -122,7 +125,7 @@ export default class Flashcards extends React.Component {
   // Event Handlers
   onAddNew = () => {
     this.setState({
-      editCardMode: true,
+      editCardMode: !this.state.editCardMode,
       editEntry: null
     });
   };
@@ -167,6 +170,9 @@ export default class Flashcards extends React.Component {
   onFlip = () => {
     this.setState({
       flip: !this.state.flip,
+      studyFlip: false,
+      studyShow: false,
+      viewMode: true,
       editCardMode: false,
       editEntry: null
     });
@@ -175,10 +181,65 @@ export default class Flashcards extends React.Component {
   onShow = () => {
     this.setState({
       show: !this.state.show,
+      studyFlip: false,
+      studyShow: false,
+      viewMode: true,
       editCardMode: false,
       editEntry: null
     });
   };
+  onStudyFlip = () => {
+    // if studyFlip is turned on, then turn it off and turn on viewMode
+    if (this.state.studyFlip) {
+      this.setState({
+        studyFlip: false,
+        studyShow: false,
+        viewMode: true,
+        editCardMode: false,
+        editEntry: null
+      });
+    }
+    // if studyFlip is turned off, then turn it on and turn off viewMode
+    else if (!this.state.studyFlip) {
+      this.setState({
+        studyFlip: true,
+        studyShow: false,
+        viewMode: false,
+        editCardMode: false,
+        editEntry: null
+      });
+    }
+  };
+
+  onStudyShow = () => {
+    // if studyShow is turned on, then turn it off and turn on viewMode
+    if (this.state.studyShow) {
+      this.setState({
+        studyFlip: false,
+        studyShow: false,
+        viewMode: true, 
+        editCardMode: false,
+        editEntry: null
+      });
+    }
+    // if studyShow is turned off, then turn it on and turn off viewMode
+    else if (!this.state.studyShow) {
+      this.setState({
+        studyFlip: false,
+        studyShow: true,
+        viewMode: false,
+        editCardMode: false,
+        editEntry: null
+      });
+    }
+  };
+
+  onNextCard = () => {
+    var newID = this.state.studyCardID + 1
+    this.setState({
+    studyCardID: newID,
+    });
+  }
 
   // check if each card is hidden or shown (doesn't work yet)
   checkHideMode = () => {
@@ -196,28 +257,28 @@ export default class Flashcards extends React.Component {
         <div id="header">
           <div className="sk-button-group">
           <div className="sk-button info">
-              <div className="sk-label"> Study Flip </div>
+              <div className="sk-label" onClick={this.onStudyFlip}> Study Flip </div>
             </div>
             <div className="sk-button info">
-              <div className="sk-label"> Study Show </div>
+              <div className="sk-label" onClick={this.onStudyShow}> Study Show </div>
             </div>
             <div className="sk-button info">
               {!this.state.flip && ( // if show mode is false
-                <div onClick={this.onFlip} className="sk-label">Flip All</div>
+                <div className="sk-label" onClick={this.onFlip}>Flip All</div>
               )}
               {this.state.flip && ( // if  show mode is true 
-                <div onClick={this.onFlip} className="sk-label">Flip Back All</div>
+                <div className="sk-label" onClick={this.onFlip}>Flip Back All</div>
               )}
             </div>
             <div className="sk-button info">
               {!this.state.show && ( // if show mode is false
-                <div onClick={this.onShow} className="sk-label">Show All</div>
+                <div className="sk-label" onClick={this.onShow}>Show All</div>
               )}
               {this.state.show && ( // if  show mode is true 
-                <div onClick={this.onShow} className="sk-label">Hide All</div>
+                <div className="sk-label" onClick={this.onShow}>Hide All</div>
               )}
             </div>
-            <div onClick={this.onAddNew} className="sk-button info">
+            <div className="sk-button info" onClick={this.onAddNew}>
               <div className="sk-label">Add New</div>
             </div>
             <div className="sk-button info">
@@ -227,37 +288,71 @@ export default class Flashcards extends React.Component {
         </div>
 
         <div id="content">
-          {this.state.show && !this.state.flip && !this.state.editCardMode && ( // if show mode is on and flip mode is off
-            <ViewCards
+        {this.state.studyFlip && !this.state.editCardMode && ( // if show mode is on and flip mode is off
+            <ViewStudyMode
+              id={this.state.studyCardID}
+              onNextCard={this.onNextCard}
               flip={this.state.flip}
               show={this.state.show}
+              studyFlip={this.state.studyFlip}
+              studyShow={this.state.studyShow}
               entries={this.state.entries}
               onEdit={this.onEdit}
               onRemove={this.onRemove}
             />
           )}
-          {this.state.show && this.state.flip && !this.state.editCardMode && ( // if show mode is on and flip mode is on
-            <ViewCards
+          {this.state.studyShow && !this.state.editCardMode && ( // if show mode is on and flip mode is off
+            <ViewStudyMode
+              id={this.state.studyCardID}
+              onNextCard={this.onNextCard}
               flip={this.state.flip}
               show={this.state.show}
+              studyFlip={this.state.studyFlip}
+              studyShow={this.state.studyShow}
               entries={this.state.entries}
               onEdit={this.onEdit}
               onRemove={this.onRemove}
             />
           )}
-          {!this.state.show && !this.state.flip && !this.state.editCardMode &&( // if show mode is off and flip mode is off
+          {this.state.show && !this.state.flip && !this.state.editCardMode && this.state.viewMode && ( // if show mode is on and flip mode is off
             <ViewCards
               flip={this.state.flip}
               show={this.state.show}
+              studyFlip={this.state.studyFlip}
+              studyShow={this.state.studyShow}
               entries={this.state.entries}
               onEdit={this.onEdit}
               onRemove={this.onRemove}
             />
           )}
-          {!this.state.show && this.state.flip && !this.state.editCardMode && ( // if show mode is off and flip mode is on 
+          {this.state.show && this.state.flip && !this.state.editCardMode && this.state.viewMode &&( // if show mode is on and flip mode is on
             <ViewCards
               flip={this.state.flip}
               show={this.state.show}
+              studyFlip={this.state.studyFlip}
+              studyShow={this.state.studyShow}
+              entries={this.state.entries}
+              onEdit={this.onEdit}
+              onRemove={this.onRemove}
+            />
+          )}
+          {!this.state.show && !this.state.flip && !this.state.editCardMode && this.state.viewMode &&( // if show mode is off and flip mode is off
+            <ViewCards
+              flip={this.state.flip}
+              show={this.state.show}
+              studyFlip={this.state.studyFlip}
+              studyShow={this.state.studyShow}
+              entries={this.state.entries}
+              onEdit={this.onEdit}
+              onRemove={this.onRemove}
+            />
+          )}
+          {!this.state.show && this.state.flip && !this.state.editCardMode && this.state.viewMode &&( // if show mode is off and flip mode is on 
+            <ViewCards
+              flip={this.state.flip}
+              show={this.state.show}
+              studyFlip={this.state.studyFlip}
+              studyShow={this.state.studyShow}
               entries={this.state.entries}
               onEdit={this.onEdit}
               onRemove={this.onRemove}
