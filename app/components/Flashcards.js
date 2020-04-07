@@ -25,7 +25,6 @@ const initialState = {
   editEntry: null,
   confirmRemove: false,
   confirmRestart: false,
-  typeof: '',
 };
 
 export default class Flashcards extends React.Component {
@@ -296,7 +295,6 @@ export default class Flashcards extends React.Component {
       const firstID = this.state.studyCardList[0];
       //const newID = Number(firstID.trim());
       this.setState({
-        typeof: type,
         studyCardID: firstID,
       });
       this.onFlip();
@@ -379,7 +377,6 @@ export default class Flashcards extends React.Component {
   render() {
     const editEntry = this.state.editEntry || {};
     const list = [0, 1, 2];
-    //var type = typeOf(this.state.studyCardList[0])
     //this.onRandomizeStudyList();
     //let cardsList = this.state.entries.filter(entry => this.state.entries.indexOf(entry) > 0);
     return (
