@@ -11,10 +11,6 @@ export default class ViewStudyMode extends React.Component {
     }
   }
 
-  getNextCard = () => {
-    this.state.id +=1
-  }
-
   render () {
     const { entries, onEdit, onRemove, show, flip, studyShow, studyFlip, id, onNextCard} = this.props
 

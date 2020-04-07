@@ -70,7 +70,8 @@ html {
   // Hacking sk-notification style
   overflow: visible !important; // We need this for the dropdown menu
   margin: 10px 0 0 0 !important;
-  padding: 28px 14px 28px 28px !important;
+  //padding: 28px 14px 28px 28px !important;
+  padding: 21px 14px 21px 28px !important; //top left bottom right 
 }
 
 .card-dialog {
@@ -145,10 +146,7 @@ html {
     .card-info {
       min-width: inherit;
       width: 100%;
-      .next-card {
-        min-width: inherit;
-        width: 100%;
-      }
+      
       .card-section-title {
         font-size: var(--sn-stylekit-font-size-h3);
         font-weight: bold;
@@ -166,6 +164,14 @@ html {
         text-align: left;
         word-wrap: break-word;
         line-height: 1.9rem;
+      }
+
+      .sk-button-group {
+        display: flex;
+        justify-content: space-between;
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
       }
     }
   }

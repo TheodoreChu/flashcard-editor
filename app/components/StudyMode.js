@@ -40,34 +40,35 @@ export default class StudyMode extends React.Component {
 			)}
 			<div className="card-entry">
 				<div className="card-details">
-				<div className="card-info" onClick={this.onToggleShow}>
+				<div className="card-info">
+				<div className="card-content" onClick={this.onToggleShow}>
 						{ this.state.flip && (
-						<div className="card-section-title">Back: </div>
+						<div className="card-section-title" >Back: </div>
 						)}
 						{ this.state.flip && (
-						<div className="card-back">{back}<br></br><br></br></div>
+						<div className="card-back" >{back}<br></br><br></br></div>
 						)}
 						{ this.state.flip && (
-						<div className="card-section-title">Front:</div>
+						<div className="card-section-title" >Front:</div>
 						)}
 						{ this.state.flip && this.state.show && (
-						<div className="card-back">{front}<br></br><br></br></div>
+						<div className="card-back" >{front}<br></br><br></br></div>
 						)}
 						
 						{ !this.state.flip && (
 						<div className="card-section-title">Front:</div>
 						)}
 						{ !this.state.flip && (
-						<div className="card-front">{front}<br></br><br></br></div>
+						<div className="card-front" >{front}<br></br><br></br></div>
 						)}
 						{ !this.state.flip && (
-						<div className="card-section-title">Back: </div>
+						<div className="card-section-title" >Back: </div>
 						)}
 						{ !this.state.flip && this.state.show && ([
-						<div className="card-back">{back}<br></br><br></br></div>
+						<div className="card-back" >{back}<br></br><br></br></div>
 						])}
 						{!this.state.show && (
-						<div className="hidden-text">
+						<div className="hidden-text" >
 								<br></br>••• ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• •••
 								<br></br>••• ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• •••
 								<br></br>••• ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• •••
@@ -75,23 +76,28 @@ export default class StudyMode extends React.Component {
 						</div>
 						)}
 						{this.state.show && notes && (
-						<div className="card-notes-row">
+						<div className="card-notes-row" >
 								<div className="card-section-title">Notes </div>
 								<div className="card-notes">{notes}</div>
 						</div>
 						)}
-					<div className="card-info" onClick={onNextCard}>
-					{this.state.show && (
-						<div className="card-menu">
-							<div className="card-overlay"/>
-								<div className="sk-menu-panel">
-									<div className="sk-menu-panel-row">
-										<div className="sk-label">Next Card</div>
-									</div>
-								</div>
+				</div>
+				{this.state.show && (
+						<div className="card-info sk-button-group study-buttons" onClick={onNextCard}>
+							<div class="sk-button info"onClick={onNextCard}>
+								<div class="sk-label"> Again </div>
 							</div>
+							<div class="sk-button info"onClick={onNextCard}>
+								<div class="sk-label"> Hard </div>
+							</div>
+							<div class="sk-button info"onClick={onNextCard}>
+								<div class="sk-label"> Good </div>
+							</div>
+							<div class="sk-button info"onClick={onNextCard}>
+								<div class="sk-label"> Easy </div>
+							</div>
+						</div>
 						)}
-					</div>
 				</div>
 				</div>
 				<div className="card-options">
