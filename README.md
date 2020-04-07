@@ -2,7 +2,7 @@
 
 <div align="center">
 
-[![License](https://img.shields.io/badge/license-AGPLv3-blue.svg?style=flat)](https://github.com/theodorechu/flashcards-editor/blob/master/LICENSE)
+[![License](https://img.shields.io/github/license/theodorechu/flashcards-editor?color=blue)](https://github.com/theodorechu/flashcards-editor/blob/master/LICENSE)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://GitHub.com/theodorechu/flashcards-editor/graphs/commit-activity)
 [![GitHub issues](https://img.shields.io/github/issues/theodorechu/flashcards-editor.svg)](https://GitHub.com/theodorechu/flashcards-editor/issues/)
 [![Slack](https://img.shields.io/badge/slack-standardnotes-CC2B5E.svg?style=flat&logo=slack)](https://standardnotes.org/slack)
