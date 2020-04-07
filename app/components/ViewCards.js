@@ -4,14 +4,14 @@ import StudyMode from './StudyMode'
 
 const ViewCards = ({ entries, onEdit, onRemove, show, flip, studyShow, studyFlip }) => (
   <div className="card-list">
-    {entries.map((entry, idx) => (
+    {entries.map((entry, id) => (
       <ShowCards
         show={show}
         flip={flip}
         studyShow={studyShow}
         studyFlip={studyFlip}
         //key={idx}
-        id={idx}
+        id={id}
         entry={entry}
         onEdit={onEdit}
         onRemove={onRemove}

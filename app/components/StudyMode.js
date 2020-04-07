@@ -83,17 +83,17 @@ export default class StudyMode extends React.Component {
 						)}
 				</div>
 				{this.state.show && (
-						<div className="card-info sk-button-group study-buttons" onClick={onNextCard}>
-							<div class="sk-button info"onClick={onNextCard}>
+						<div className="card-info sk-button-group study-buttons" onClick={onNextCard} onClick={this.onToggleShow}>
+							<div class="sk-button info" onClick={onNextCard}>
 								<div class="sk-label"> Again </div>
 							</div>
-							<div class="sk-button info"onClick={onNextCard}>
+							<div class="sk-button info" onClick={onNextCard}>
 								<div class="sk-label"> Hard </div>
 							</div>
-							<div class="sk-button info"onClick={onNextCard}>
+							<div class="sk-button info" onClick={onNextCard}>
 								<div class="sk-label"> Good </div>
 							</div>
-							<div class="sk-button info"onClick={onNextCard}>
+							<div class="sk-button info" onClick={onNextCard}>
 								<div class="sk-label"> Easy </div>
 							</div>
 						</div>

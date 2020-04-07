@@ -245,7 +245,7 @@ export default class Flashcards extends React.Component {
   };
 
   // shuffle cards with the Fisher-Yates (aka Knuth) Shuffle. See http://bost.ocks.org/mike/shuffle/
-  shuffleCards = () => {
+  onShuffleCards = () => {
     var currentIndex = this.state.entries.length, temporaryValue, randomIndex;
   
     // While there remain elements to shuffle...
@@ -261,11 +261,21 @@ export default class Flashcards extends React.Component {
       this.state.entries[randomIndex] = temporaryValue;
       this.editEntry({ randomIndex, temporaryValue });
     }
+    this.setState({
+      studyCardID: 0
+    })
   }
 
-  randomizeStudyList = () => {
-    this.onFlip;/*
-    var temporaryList = Array.from(Array(this.state.entries.length - 1).keys())
+  // this isn't working!!!
+  onRandomizeStudyList() {
+    this.onShow;/*
+    var temporaryList = []
+    for(var i = 0; i < this.state.entries.length; i++){
+      temporaryList.push(i); 
+    }
+    
+    /*
+    //var temporaryList = Array.from(Array(this.state.entries.length - 1).keys())
     var currentIndex = temporaryList.length, temporaryValue, randomIndex;
 
     // While there remain elements to shuffle...
@@ -279,38 +289,44 @@ export default class Flashcards extends React.Component {
       temporaryValue = temporaryList[currentIndex];
       temporaryList[currentIndex] = temporaryList[randomIndex];
       temporaryList[randomIndex] = temporaryValue;
-
       // add the swap to the state
       //temporaryList.push(this.state.entries[randomIndex].id)
     }
     this.setState({
+      studyCardID: 0
+    })
+    this.setState({
       studyCardList: temporaryList
     })
-    */
+    this.onShow;
+    return temporaryList*/
   }
 
   onNextCard = () => {
-    const newID = this.state.studyCardID + 1
+    //const newIDCounter = this.state.studyCardID + 1
   //  this.setState({
- //     studyCardID: newID
+  //     studyCardID: newID
   //  })
     // the last ID should be one less than the length because IDs start at zero
     // if the id is one less than the length, then start over with a randomized list
     if (this.state.studyCardID == this.state.entries.length - 1 ) { 
-      //this.randomizeStudyList;
+      //const newID = this.studyCardList[0]
+      //const temporaryList = this.randomizeStudyList; // which is equal to this.state.studyCardList
       //const randomNewID = this.state.studyCardList[0]
-      this.setState({
-        studyCardID: 0,
-      })
-    }
-    //otherwise, add one add one and continue
-    else {
-      //var newID = this.state.studyCardList[newID]
+      const newID = 0
       this.setState({
         studyCardID: newID,
       })
     }
-    this.onFlip();
+    //otherwise, add one add one and continue
+    else {
+      const newID = this.state.studyCardID + 1
+      //const newID = this.state.studyCardList[newIDCounter]
+      this.setState({
+        studyCardID: newID,
+      })
+    }
+    //this.onShow();
   }
 
   // check if each card is hidden or shown (doesn't work yet)
@@ -362,10 +378,10 @@ export default class Flashcards extends React.Component {
             <div className="sk-button info" onClick={this.onAddNew}>
               <div className="sk-label">Add New</div>
             </div>
-            <div className="sk-button info" onClick={this.randomizeStudyList}>
+            <div className="sk-button info" onClick={this.onRandomizeStudyList}>
               <div className="sk-label">Settings</div>
             </div>
-            <div className="sk-button info" onClick={this.shuffleCards}>
+            <div className="sk-button info" onClick={this.onShuffleCards}>
               <div className="sk-label">Shuffle</div>
             </div>
           </div>
