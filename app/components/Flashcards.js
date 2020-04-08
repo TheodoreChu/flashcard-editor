@@ -6,7 +6,7 @@ import ConfirmDialog from './ConfirmDialog';
 import DataErrorAlert from './DataErrorAlert';
 import EditEntry from './EditEntry';
 
-import { ViewCards } from './ViewCards';
+import ViewViewMode from './ViewViewMode';
 import ViewStudyMode from './ViewStudyMode';
 import HeaderMenu from './HeaderMenu';
 
@@ -19,8 +19,10 @@ const initialState = {
   flip: false,
   studyFlip: false,
   studyShow: false,
-  studyCardList: [0], //list of IDS
-  studyCardID: 0, // the ID of the study card (which is not necessarily its corresponding index in the study card list)
+  randomCardList: [], //list of IDs for random study mode
+  randomCardID: 0, // the ID of the study card (which is not necessarily its corresponding index in the study card list)
+  spacedCardList: [], //list of IDs for random study mode
+  spacedCardID: 0, // the ID of the study card (which is not necessarily its corresponding index in the study card list)
   viewMode: true,
   editEntry: null,
   confirmRemove: false,
@@ -199,7 +201,21 @@ export default class Flashcards extends React.Component {
     });
   };
 
+  onHide = () => {
+    this.setState({
+      show: false,
+      studyFlip: false,
+      studyShow: false,
+      viewMode: true,
+      editCardMode: false,
+      editEntry: null
+    });
+  };
+
   onStudyFlip = () => {
+    if (this.state.randomCardList.length === 0 && this.state.entries.length > 0) {
+      this.getRandomCardList();
+    }
     // if studyFlip is turned on, then turn it off and turn on viewMode
     if (this.state.studyFlip) {
       this.setState({
@@ -223,6 +239,9 @@ export default class Flashcards extends React.Component {
   };
 
   onStudyShow = () => {
+    if (this.state.randomCardList.length === 0 && this.state.entries.length > 0) {
+      this.getRandomCardList();
+    }
     // if studyShow is turned on, then turn it off and turn on viewMode
     if (this.state.studyShow) {
       this.setState({
@@ -265,7 +284,7 @@ export default class Flashcards extends React.Component {
   }
 
   // this isn't working!!!
-  onRandomizeStudyList = () => {
+  getRandomCardList = () => {
     if (this.state.entries != 0) {
       var temporaryList = [];
       for (var i = 0; i < this.state.entries.length; i++){
@@ -290,33 +309,33 @@ export default class Flashcards extends React.Component {
       };
       const firstID = Number(temporaryList[0]);
       this.setState({
-        studyCardList: temporaryList,
-        studyCardID: firstID,
+        randomCardList: temporaryList,
+        randomCardID: firstID,
       });
     }
   }
 
   // this is the basic version, without randomness
   onNextCardOld = () => {
-    //const newIDCounter = this.state.studyCardID + 1
+    //const newIDCounter = this.state.randomCardID + 1
     // the last ID should be one less than the length because IDs start at zero
     // if the id is one less than the length, then start over with a randomized list
-    if (this.state.studyCardID === this.state.entries.length - 1 ) { 
-      //const newID = this.studyCardList[0]
-      //const temporaryList = this.randomizeStudyList; // which is equal to this.state.studyCardList
-      //const randomNewID = this.state.studyCardList[0]
+    if (this.state.randomCardID === this.state.entries.length - 1 ) { 
+      //const newID = this.randomCardList[0]
+      //const temporaryList = this.getRandomCardList; // which is equal to this.state.randomCardList
+      //const randomNewID = this.state.randomCardList[0]
       const newID = 0;
       this.setState({
-        studyCardID: newID,
+        randomCardID: newID,
         confirmRestart: true,
       });
     }
     //otherwise, add one add one and continue
     else {
-      const newID = this.state.studyCardID + 1;
-      //const newID = this.state.studyCardList[newIDCounter]
+      const newID = this.state.randomCardID + 1;
+      //const newID = this.state.randomCardList[newIDCounter]
       this.setState({
-        studyCardID: newID,
+        randomCardID: newID,
       });
     }
     //this.onShow();
@@ -324,11 +343,11 @@ export default class Flashcards extends React.Component {
   
   onNextCard = () => {
     // the last ID is the 
-    //if (this.state.studyCardID == this.state.entries.length - 1 ) {
-    const currentIndex = this.state.studyCardList.indexOf(this.state.studyCardID);
-    const lastIndex = this.state.studyCardList.length - 1; // last index of studyCardList
+    //if (this.state.randomCardID == this.state.entries.length - 1 ) {
+    const currentIndex = this.state.randomCardList.indexOf(this.state.randomCardID);
+    const lastIndex = this.state.randomCardList.length - 1; // last index of randomCardList
     if (currentIndex === lastIndex) {
-      this.onRandomizeStudyList();
+      this.getRandomCardList();
       this.setState({
         confirmRestart: true // if all cards studied, ask if you want to start over
       });
@@ -337,9 +356,9 @@ export default class Flashcards extends React.Component {
     //otherwise, add one add one and continue
     else {
       const nextIndex = currentIndex + 1;
-      const nextCardID = this.state.studyCardList[nextIndex];
+      const nextCardID = this.state.randomCardList[nextIndex];
       this.setState({
-        studyCardID: nextCardID,
+        randomCardID: nextCardID,
       });
     }
   }
@@ -351,7 +370,7 @@ export default class Flashcards extends React.Component {
   }
 
   onStopStudy = () => {
-    this.onShow();
+    this.onHide();
     this.setState({
       confirmRestart: false,
     });
@@ -365,9 +384,20 @@ export default class Flashcards extends React.Component {
     }
   }
 
+  /*
+  <div>{this.state.randomCardList}<br></br><br></br>
+  <br></br>zero: {this.state.randomCardList[0]}, one: {this.state.randomCardList[1]}, two: {this.state.randomCardList[2]}, three: {this.state.randomCardList[3]}<br></br>
+  <br></br>studyCard: {this.state.randomCardList[this.state.randomCardID]}
+  <br></br>randomCardID: {this.state.randomCardID}
+  <br></br>next card: {this.state.randomCardList[this.state.randomCardID + 1]}
+  <br></br>next id: {this.state.randomCardID + 1}
+  </div>
+  */
+
   render() {
     const editEntry = this.state.editEntry || {};
-    //this.onRandomizeStudyList();
+
+    //this.getRandomCardList();
     //let cardsList = this.state.entries.filter(entry => this.state.entries.indexOf(entry) > 0);
     return (
       <div className="sn-component">
@@ -407,7 +437,7 @@ export default class Flashcards extends React.Component {
             <div className="sk-button info" onClick={this.onAddNew}>
               <div className="sk-label">Add New</div>
             </div>
-            <div className="sk-button info" onClick={this.onRandomizeStudyList}>
+            <div className="sk-button info" onClick={this.getRandomCardList}>
               <div className="sk-label">Settings</div>
             </div>
             <div className="sk-button info" onClick={this.onShuffleCards}>
@@ -417,16 +447,16 @@ export default class Flashcards extends React.Component {
         </div>
 
         <div id="content">
-          <div>{this.state.studyCardList}<br></br><br></br>
-          <br></br>zero: {this.state.studyCardList[0]}, one: {this.state.studyCardList[1]}, two: {this.state.studyCardList[2]}, three: {this.state.studyCardList[3]}<br></br>
-          <br></br>studyCard: {this.state.studyCardList[this.state.studyCardID]}
-          <br></br>studyCardID: {this.state.studyCardID}
-          <br></br>next card: {this.state.studyCardList[this.state.studyCardID + 1]}
-          <br></br>next id: {this.state.studyCardID + 1}
+        <div>{this.state.randomCardList}<br></br><br></br>
+          <br></br>zero: {this.state.randomCardList[0]}, one: {this.state.randomCardList[1]}, two: {this.state.randomCardList[2]}, three: {this.state.randomCardList[3]}<br></br>
+          <br></br>studyCard: {this.state.randomCardList[this.state.randomCardID]}
+          <br></br>randomCardID: {this.state.randomCardID}
+          <br></br>next card: {this.state.randomCardList[this.state.randomCardID + 1]}
+          <br></br>next id: {this.state.randomCardID + 1}
           </div>
         {this.state.studyFlip && !this.state.editCardMode && ( // if show mode is on and flip mode is off
             <ViewStudyMode
-              id={this.state.studyCardID}
+              id={this.state.randomCardID}
               onNextCard={this.onNextCard}
               flip={this.state.flip}
               show={this.state.show}
@@ -439,7 +469,7 @@ export default class Flashcards extends React.Component {
           )}
           {this.state.studyShow && !this.state.editCardMode && ( // if show mode is on and flip mode is off
             <ViewStudyMode
-              id={this.state.studyCardID}
+              id={this.state.randomCardID}
               onNextCard={this.onNextCard}
               flip={this.state.flip}
               show={this.state.show}
@@ -451,7 +481,7 @@ export default class Flashcards extends React.Component {
             />
           )}
           {this.state.show && !this.state.flip && !this.state.editCardMode && this.state.viewMode && ( // if show mode is on and flip mode is off
-            <ViewCards
+            <ViewViewMode
               flip={this.state.flip}
               show={this.state.show}
               studyFlip={this.state.studyFlip}
@@ -462,7 +492,7 @@ export default class Flashcards extends React.Component {
             />
           )}
           {this.state.show && this.state.flip && !this.state.editCardMode && this.state.viewMode &&( // if show mode is on and flip mode is on
-            <ViewCards
+            <ViewViewMode
               flip={this.state.flip}
               show={this.state.show}
               studyFlip={this.state.studyFlip}
@@ -473,7 +503,7 @@ export default class Flashcards extends React.Component {
             />
           )}
           {!this.state.show && !this.state.flip && !this.state.editCardMode && this.state.viewMode &&( // if show mode is off and flip mode is off
-            <ViewCards
+            <ViewViewMode
               flip={this.state.flip}
               show={this.state.show}
               studyFlip={this.state.studyFlip}
@@ -484,7 +514,7 @@ export default class Flashcards extends React.Component {
             />
           )}
           {!this.state.show && this.state.flip && !this.state.editCardMode && this.state.viewMode &&( // if show mode is off and flip mode is on 
-            <ViewCards
+            <ViewViewMode
               flip={this.state.flip}
               show={this.state.show}
               studyFlip={this.state.studyFlip}

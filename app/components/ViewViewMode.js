@@ -1,11 +1,11 @@
 import React from 'react';
-import ShowCards from './ShowCards'
-import StudyMode from './StudyMode'
+//import StudyMode from './StudyMode'
+import ViewMode from './ViewMode';
 
-const ViewCards = ({ entries, onEdit, onRemove, show, flip, studyShow, studyFlip }) => (
+const ViewViewMode = ({ entries, onEdit, onRemove, show, flip, studyShow, studyFlip }) => (
   <div className="card-list">
     {entries.map((entry, id) => (
-      <ShowCards
+      <ViewMode
         show={show}
         flip={flip}
         studyShow={studyShow}
@@ -20,7 +20,7 @@ const ViewCards = ({ entries, onEdit, onRemove, show, flip, studyShow, studyFlip
   </div>
 );
 
-export { ViewCards };
+export default ViewViewMode;
 /*
 export default class ViewStudyMode extends React.Component {
   constructor(props) {
@@ -52,7 +52,7 @@ export default class ViewStudyMode extends React.Component {
       />
     //))
   </div>
-  );*/
+  );
 
 const ViewStudyMode = ({ entries, onEdit, onRemove, show, flip, studyShow, studyFlip }) => (
   <div className="card-list">
@@ -70,4 +70,4 @@ const ViewStudyMode = ({ entries, onEdit, onRemove, show, flip, studyShow, study
   </div>
 );
 
-export { ViewStudyMode };
+export { ViewStudyMode };*/

@@ -3,8 +3,9 @@ import React from 'react';
 export default class EditEntry extends React.Component {
   static defaultProps = {
     entry: {
-      "forward": "true",
-      "reverse": "true"
+      forward: true,
+      reverse: true,
+      timeLeft: 0,
     }
   };
 
@@ -44,25 +45,28 @@ export default class EditEntry extends React.Component {
               {id != null ? 'Edit card' : 'Add new card'}
             </div>
             <form onSubmit={this.onSave}>
-              <input
+              Front:
+              <textarea
                 name="front"
-                className="sk-input contrast"
+                className="sk-input contrast textarea"
                 placeholder="Front"
                 value={entry.front}
                 onChange={this.handleInputChange}
                 type="text"
               />
-              <input
+              Back:
+              <textarea
                 name="back"
-                className="sk-input contrast"
+                className="sk-input contrast textarea"
                 placeholder="Back"
                 value={entry.back}
                 onChange={this.handleInputChange}
                 type="text"
               />
-              <input
+              Notes
+              <textarea
                 name="notes"
-                className="sk-input contrast"
+                className="sk-input contrast textarea"
                 placeholder="Notes"
                 value={entry.notes}
                 onChange={this.handleInputChange}

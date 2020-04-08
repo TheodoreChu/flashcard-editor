@@ -1,7 +1,7 @@
 import React from 'react';
 import CardMenu from './CardMenu';
 
-export default class CardShowPartNoFlip extends React.Component {
+export default class ViewMode extends React.Component {
   constructor(props) {
   super(props);
 

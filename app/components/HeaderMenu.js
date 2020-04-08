@@ -3,12 +3,53 @@ import React from 'react';
 export default class HeaderMenu extends React.Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      show: false
+    };
   }
 
+  onToggle = () => {
+    this.setState({
+      show: !this.state.show
+    });
+  };
+
+  onEdit = () => {
+    this.onToggle();
+    this.props.onEdit();
+  };
+
+  onRemove = () => {
+    this.onToggle();
+    this.props.onRemove();
+  };
+
   render() {
-    const {entries, onStudyFlip, onStudyShow, onFlip, onShow, onAddNew, shuffleCards} = this.props
+    //const {entries, onStudyFlip, onStudyShow, onFlip, onShow, onAddNew, shuffleCards} = this.props
 
     return (
+      <div className="card-menu" onClick={this.onToggle}>
+        <div className="sk-button info" onClick={this.onToggle}>
+          <div className="sk-label">•••</div>
+        </div>
+        {this.state.show && [
+          <div className="card-overlay" onClick={this.onToggle} />,
+          <div className="sk-menu-panel">
+            <div className="sk-menu-panel-row">
+              <div className="sk-label">Flip</div>
+            </div>
+            <div className="sk-menu-panel-row">
+              <div className="sk-label">Edit</div>
+            </div>
+            <div className="sk-menu-panel-row">
+              <div className="sk-label">Remove</div>
+            </div>
+          </div>
+        ]}
+      </div>
+    );
+    /*return (
       <div className="sk-button-group">
         <div className="sk-button info">
           {entries.length > 0 ? ( // if cardsList is empty, button doesn't do anything
@@ -50,7 +91,7 @@ export default class HeaderMenu extends React.Component {
           <div className="sk-label">Shuffle</div>
         </div>
       </div>
-    );
+    );*/
   }
 }
 /*
