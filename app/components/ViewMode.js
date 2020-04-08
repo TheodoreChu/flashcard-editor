@@ -36,37 +36,30 @@ export default class ViewMode extends React.Component {
         <div className="card-details">
           <div className="card-info" onClick={this.onToggleShow}>
 
-            { this.state.flip && (
-              <div className="card-section-title">Back: </div>
-            )}
-            { this.state.flip && (
-            <div className="card-back">{back}<br></br><br></br></div>
-            )}
-            { this.state.flip && (
-              <div className="card-section-title">Front:</div>
-            )}
+            { this.state.flip && ([
+              <div className="card-section-title">Back: </div>,
+              <div className="card-back">{back}<br></br><br></br></div>,
+              <div className="card-section-title">Front:</div>,
+            ])}
+            
             { this.state.flip && this.state.show && (
             <div className="card-back">{front}<br></br><br></br></div>
               )}
             
-            { !this.state.flip && (
-              <div className="card-section-title">Front:</div>
-            )}
-            { !this.state.flip && (
-            <div className="card-front">{front}<br></br><br></br></div>
-            )}
-            { !this.state.flip && (
+            { !this.state.flip && [
+              <div className="card-section-title">Front:</div>,
+              <div className="card-front">{front}<br></br><br></br></div>,
               <div className="card-section-title">Back: </div>
-            )}
+            ]}
             { !this.state.flip && this.state.show && ([
             <div className="card-back">{back}<br></br><br></br></div>
               ])}
-            {!this.state.show && (
+
+            {!this.state.show && {back} && {front} && {notes} && (
               <div className="hidden-text">
-                <br></br>••• ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• •••
-                <br></br>••• ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• •••
-                <br></br>••• ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• •••
-                <br></br>
+                ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• •••<br></br>
+                ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• •••<br></br>
+                ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• •••<br></br>
               </div>
               )}
 
