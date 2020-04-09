@@ -5,10 +5,13 @@ import CardMenu from './CardMenu';
 import unified from 'unified'
 import parse from 'remark-parse'
 import remark2react from 'remark-react'
+import remark2rehype from 'remark-rehype'
+import rehype2react from 'rehype-react'
+//import '../stylesheets/katex/katex.css';
 
 // additional for math
-//import remarkmath from 'remark-math';
-//import rehypeKatex from 'rehype-katex';
+import math from 'remark-math';
+import rehypeKatex from 'rehype-katex';
 
 //for syntax highlighting
 //import highlight from 'remark-highlight.js';
@@ -19,6 +22,17 @@ window.addEventListener("keydown", function (event) {
   }
 }, true);
 console.log("event listener added")
+
+var processor = unified()
+  .use(parse)
+  //.use(slug)
+  //.use(toc)
+  //.use(github, {repository: 'rehypejs/rehype-react'})
+  .use(remark2rehype)
+  .use(math)
+  .use(rehypeKatex)
+  //.use(highlight)
+  .use(rehype2react, {createElement: React.createElement})
 
 export default class ViewCards extends React.Component {
   constructor(props) {
@@ -71,12 +85,13 @@ export default class ViewCards extends React.Component {
           <div className="card-info" onClick={this.onToggleShow}>
             <div className="card-content" onClick={this.onToggleShow}>
               { // View Mode
-                this.state.flip && this.state.viewMode && ([
+                this.state.flip && this.state.viewMode && ([ // flip on 
                 <div className="card-back">
                   {unified().use(parse).use(remark2react).processSync(back).result}</div>,
                 ])}
-              { !this.state.flip && this.state.viewMode && ([
+              { !this.state.flip && this.state.viewMode && ([ // flip off 
                 <div className="card-back">
+                  {processor.processSync(front).result}
                   {unified().use(parse).use(remark2react).processSync(front).result}</div>,
                 ])}
               { this.state.viewMode && ([
