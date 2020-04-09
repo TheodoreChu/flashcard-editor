@@ -1,22 +1,18 @@
 import React from 'react';
-import StudyMode from './StudyMode'
+//import StudyMode from './StudyMode'
+import ViewCards from './ViewCards'
 
 export default class ViewStudyMode extends React.Component {
   constructor(props) {
     super(props);
-/*
-    this.state = {
-      test: true,
-      id: 0,
-    }*/
   }
 
   render () {
-    const { entries, onEdit, onRemove, show, flip, studyShow, studyFlip, id, onNextCard} = this.props
+    const { entries, onEdit, onRemove, show, flip, studyShow, studyFlip, id, onNextCard, viewMode} = this.props
 
     return (
       <div className="card-list">
-        <StudyMode
+        <ViewCards
           onNextCard={onNextCard}
           show={show}
           flip={flip}
@@ -25,6 +21,7 @@ export default class ViewStudyMode extends React.Component {
           //key={idx}
           id={id}
           entry={entries[id]}
+          viewMode={viewMode}
           onEdit={onEdit}
           onRemove={onRemove}
         />

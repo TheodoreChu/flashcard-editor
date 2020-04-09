@@ -1,5 +1,7 @@
 import React from 'react';
 
+let keyMap = new Map();
+
 export default class EditEntry extends React.Component {
   static defaultProps = {
     entry: {
@@ -37,11 +39,13 @@ export default class EditEntry extends React.Component {
   // this is the default behavior for 'input' boxes but not 'textarea'
   // we want it to be control + enter
   onKeyDown = (e) => {
-    let keyMap = new Map();
-    keyMap.set(e.key, e.type == 'keydown');
+    keyMap.set(e.key, true);
     //const submit = document.querySelector('#submit');
+    console.log("keydown control: " + keyMap.get('Control') + "enter: " + keyMap.get('Enter'));
     if (keyMap.get('Control') && keyMap.get('Enter')) {
       e.preventDefault();
+      keyMap.set('Control', false);
+      keyMap.set('Enter', false);
       this.onSave(e);
       //submit.click();
       //alert('You pressed Control and Enter');
@@ -67,7 +71,6 @@ export default class EditEntry extends React.Component {
                 value={entry.front}
                 onChange={this.handleInputChange}
                 onKeyDown={this.onKeyDown}
-                onKeyUp={this.onKeyDown}
                 type="text"
               />
               Back:
@@ -78,7 +81,6 @@ export default class EditEntry extends React.Component {
                 value={entry.back}
                 onChange={this.handleInputChange}
                 onKeyDown={this.onKeyDown}
-                onKeyUp={this.onKeyDown}
                 type="text"
               />
               Notes
@@ -89,7 +91,6 @@ export default class EditEntry extends React.Component {
                 value={entry.notes}
                 onChange={this.handleInputChange}
                 onKeyDown={this.onKeyDown}
-                onKeyUp={this.onKeyDown}
                 type="text"
               />
               <div className="sk-panel-row">

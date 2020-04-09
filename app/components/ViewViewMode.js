@@ -1,11 +1,12 @@
 import React from 'react';
 //import StudyMode from './StudyMode'
-import ViewMode from './ViewMode';
+//import ViewMode from './ViewMode';
+import ViewCards from './ViewCards';
 
-const ViewViewMode = ({ entries, onEdit, onRemove, show, flip, studyShow, studyFlip }) => (
+const ViewViewMode = ({ entries, onEdit, onRemove, show, flip, studyShow, studyFlip, viewMode }) => (
   <div className="card-list">
     {entries.map((entry, id) => (
-      <ViewMode
+      <ViewCards
         show={show}
         flip={flip}
         studyShow={studyShow}
@@ -13,6 +14,7 @@ const ViewViewMode = ({ entries, onEdit, onRemove, show, flip, studyShow, studyF
         //key={idx}
         id={id}
         entry={entry}
+        viewMode={viewMode}
         onEdit={onEdit}
         onRemove={onRemove}
       />

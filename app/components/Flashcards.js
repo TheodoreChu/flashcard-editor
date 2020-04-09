@@ -14,9 +14,12 @@ const initialState = {
   text: '',
   entries: [],
   parseError: false,
+  confirmRemove: false,
+  confirmRestart: false,
+  editEntry: null,
   editCardMode: false,
-  show: false,
   flip: false,
+  show: false,
   studyFlip: false,
   studyShow: false,
   randomCardList: [], //list of IDs for random study mode
@@ -24,9 +27,6 @@ const initialState = {
   spacedCardList: [], //list of IDs for random study mode
   spacedCardID: 0, // the ID of the study card (which is not necessarily its corresponding index in the study card list)
   viewMode: true,
-  editEntry: null,
-  confirmRemove: false,
-  confirmRestart: false,
 };
 
 export default class Flashcards extends React.Component {
@@ -99,7 +99,7 @@ export default class Flashcards extends React.Component {
     this.setState(state => {
       const entries = state.entries.concat([entry]);
       this.saveNote(entries);
-
+      console.log("finished adding entry")
       return {
         editCardMode: false,
         editEntry: null,
@@ -112,7 +112,7 @@ export default class Flashcards extends React.Component {
     this.setState(state => {
       const entries = update(state.entries, { [id]: { $set: entry } });
       this.saveNote(entries);
-
+      console.log("finished editing entry");
       return {
         editCardMode: false,
         editEntry: null,
@@ -211,6 +211,11 @@ export default class Flashcards extends React.Component {
       editEntry: null
     });
   };
+
+  onKeyUp = e => {
+    keyMap.set(e.key, false);
+    console.log("keyup control: " + keyMap.get('Control') + "enter: " + keyMap.get('Enter'));
+  }
 
   onStudyFlip = () => {
     if (this.state.randomCardList.length === 0 && this.state.entries.length > 0) {
@@ -456,6 +461,7 @@ export default class Flashcards extends React.Component {
               studyFlip={this.state.studyFlip}
               studyShow={this.state.studyShow}
               entries={this.state.entries}
+              viewMode={this.state.viewMode}
               onEdit={this.onEdit}
               onRemove={this.onRemove}
             />
@@ -469,6 +475,7 @@ export default class Flashcards extends React.Component {
               studyFlip={this.state.studyFlip}
               studyShow={this.state.studyShow}
               entries={this.state.entries}
+              viewMode={this.state.viewMode}
               onEdit={this.onEdit}
               onRemove={this.onRemove}
             />
@@ -480,6 +487,7 @@ export default class Flashcards extends React.Component {
               studyFlip={this.state.studyFlip}
               studyShow={this.state.studyShow}
               entries={this.state.entries}
+              viewMode={this.state.viewMode}
               onEdit={this.onEdit}
               onRemove={this.onRemove}
             />
@@ -491,6 +499,7 @@ export default class Flashcards extends React.Component {
               studyFlip={this.state.studyFlip}
               studyShow={this.state.studyShow}
               entries={this.state.entries}
+              viewMode={this.state.viewMode}
               onEdit={this.onEdit}
               onRemove={this.onRemove}
             />
@@ -502,6 +511,7 @@ export default class Flashcards extends React.Component {
               studyFlip={this.state.studyFlip}
               studyShow={this.state.studyShow}
               entries={this.state.entries}
+              viewMode={this.state.viewMode}
               onEdit={this.onEdit}
               onRemove={this.onRemove}
             />
@@ -513,6 +523,7 @@ export default class Flashcards extends React.Component {
               studyFlip={this.state.studyFlip}
               studyShow={this.state.studyShow}
               entries={this.state.entries}
+              viewMode={this.state.viewMode}
               onEdit={this.onEdit}
               onRemove={this.onRemove}
             />
