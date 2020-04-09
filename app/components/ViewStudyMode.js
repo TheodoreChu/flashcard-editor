@@ -4,11 +4,11 @@ import StudyMode from './StudyMode'
 export default class ViewStudyMode extends React.Component {
   constructor(props) {
     super(props);
-
+/*
     this.state = {
       test: true,
       id: 0,
-    }
+    }*/
   }
 
   render () {

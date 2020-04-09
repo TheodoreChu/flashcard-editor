@@ -447,13 +447,6 @@ export default class Flashcards extends React.Component {
         </div>
 
         <div id="content">
-        <div>{this.state.randomCardList}<br></br><br></br>
-          <br></br>zero: {this.state.randomCardList[0]}, one: {this.state.randomCardList[1]}, two: {this.state.randomCardList[2]}, three: {this.state.randomCardList[3]}<br></br>
-          <br></br>studyCard: {this.state.randomCardList[this.state.randomCardID]}
-          <br></br>randomCardID: {this.state.randomCardID}
-          <br></br>next card: {this.state.randomCardList[this.state.randomCardID + 1]}
-          <br></br>next id: {this.state.randomCardID + 1}
-          </div>
         {this.state.studyFlip && !this.state.editCardMode && ( // if show mode is on and flip mode is off
             <ViewStudyMode
               id={this.state.randomCardID}

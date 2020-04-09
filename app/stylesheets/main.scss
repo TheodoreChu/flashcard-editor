@@ -30,7 +30,7 @@ html {
   .sk-button-group {
     display: flex;
     justify-content: space-between;
-    width: 100%;
+    width: 80%;
   }
 }
 
@@ -118,16 +118,6 @@ html {
   margin: 10px;// 10px 0;
 }
 
-.card-notes-row {
-  .card-section-title {
-    font-size: var(--sn-stylekit-font-size-h3);
-  }
-  .card-notes {
-    font-size: var(--sn-stylekit-base-font-size);
-    overflow: hidden;
-  }
-}
-
 /* entry default styles */
 .card-entry {
   display: flex;
@@ -157,23 +147,101 @@ html {
       min-width: inherit;
       width: 100%;
       
+      code, pre {
+        font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace,
+      }
+      code {
+        box-sizing: border-box;
+        word-wrap: break-word;
+        padding: .2em .4em;
+        margin: 0;
+        font-size: 85%;
+        background-color: rgba(27,31,35,.05);
+        border-radius: 3px;
+      }
+
+      pre {
+        padding: 16px;
+        overflow: auto;
+        font-size: 85%;
+        line-height: 1.45;
+        background-color: #f6f8fa;
+        border-radius: 3px;
+        word-wrap: normal;
+        margin-top: 0;
+        margin-bottom: 16px;
+      }
+      
+      pre > code {
+        padding: 0;
+        margin: 0;
+        font-size: 100%;
+        word-break: normal;
+        white-space: pre;
+        background: transparent;
+        background-color: transparent;
+        border: 0;
+      }
+
+      pre code {
+        display: inline;
+        max-width: auto;
+        padding: 0;
+        margin: 0;
+        overflow: visible;
+        line-height: inherit;
+        word-wrap: normal;
+        background-color: initial;
+        border: 0;
+        
+      }
+
+      hr {
+        border: 0.25px solid var(--sn-stylekit-border-color);
+        max-width: 300px;
+        width:100%
+      }
+
+      a {
+        color: #086dd6;
+        text-decoration: none;
+      }
+
+      a:hover {
+        text-decoration: underline;
+      }
+
       .card-section-title {
         font-size: var(--sn-stylekit-font-size-h3);
-        font-weight: bold;
       }
 
       .card-front {
-        font-size: var(--sn-stylekit-font-size-h1);
-        text-align: left;
+        font-size: var(--sn-stylekit-font-size-editor);
+        //text-align: center;
         word-wrap: break-word;
         line-height: 1.9rem;
       }
 
       .card-back {
-        font-size: var(--sn-stylekit-font-size-h1);
-        text-align: left;
+        font-size: var(--sn-stylekit-font-size-editor);
+        text-align: auto;
+        margin-left: auto;
+        margin-right: auto;
+        width: 100%;
         word-wrap: break-word;
         line-height: 1.9rem;
+      }
+
+      .card-notes-row {
+        .card-section-title {
+          font-size: var(--sn-stylekit-font-size-h3);
+        }
+        //no longer in use
+        .card-notes {
+          font-size: var(--sn-stylekit-base-font-size);
+          overflow: hidden;
+          margin-top: 0;
+        }
       }
 
       .sk-button-group {

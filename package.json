@@ -27,7 +27,15 @@
   "sn": {
     "main": "dist/index.html"
   },
-  "dependencies": {},
+  "dependencies": {
+    "rehype-katex": "^3.0.0",
+    "rehype-stringify": "^7.0.0",
+    "remark-highlight.js": "^6.0.0",
+    "remark-math": "^2.0.1",
+    "remark-parse": "^8.0.0",
+    "remark-react": "^7.0.1",
+    "unified": "^9.0.0"
+  },
   "devDependencies": {
     "@babel/core": "7.9.0",
     "@babel/plugin-proposal-class-properties": "^7.8.3",

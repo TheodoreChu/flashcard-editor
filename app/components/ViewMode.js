@@ -1,5 +1,17 @@
 import React from 'react';
 import CardMenu from './CardMenu';
+//import { Remarkable } from 'remarkable';
+//import ReactDom from 'react-dom'
+import unified from 'unified'
+import parse from 'remark-parse'
+import remark2react from 'remark-react'
+
+// additional for math
+//import remarkmath from 'remark-math';
+//import rehypeKatex from 'rehype-katex';
+
+//for syntax highlighting
+//import highlight from 'remark-highlight.js';
 
 export default class ViewMode extends React.Component {
   constructor(props) {
@@ -11,7 +23,12 @@ export default class ViewMode extends React.Component {
     studyShow: this.props.studyShow,
     studyFlip: this.props.studyFlip,
     };
+  this.onChange = this.onChange.bind(this);
   }
+
+  onChange(e) {
+    this.setState({ text: e.target.value });
+  };
 
   onToggleShow = () => {
     this.setState({
@@ -27,46 +44,49 @@ export default class ViewMode extends React.Component {
 
   render() {
       // get next card
-    const { front, back, notes } = this.props.entry;
-    const { id, onEdit, onRemove } = this.props;
-    
+      const { front, back, notes } = this.props.entry;
+      const { id, onEdit, onRemove } = this.props;
+      //{unified().use(parse).use(remark2react).processSync(this.state.text).result}
+      /*••• ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• •••<br></br>
+        ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• •••<br></br>
+        ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• •••<br></br>*/
     return (
       <div className="sk-notification sk-base">
       <div className="card-entry">
         <div className="card-details">
           <div className="card-info" onClick={this.onToggleShow}>
-
+            
             { this.state.flip && ([
-              <div className="card-section-title">Back: </div>,
-              <div className="card-back">{back}<br></br><br></br></div>,
-              <div className="card-section-title">Front:</div>,
+              <div className="card-back">
+                {unified().use(parse).use(remark2react).processSync(back).result}</div>,
             ])}
-            
-            { this.state.flip && this.state.show && (
-            <div className="card-back">{front}<br></br><br></br></div>
-              )}
-            
-            { !this.state.flip && [
-              <div className="card-section-title">Front:</div>,
-              <div className="card-front">{front}<br></br><br></br></div>,
-              <div className="card-section-title">Back: </div>
-            ]}
+            { !this.state.flip && ([
+              <div className="card-back">
+                {unified().use(parse).use(remark2react).processSync(front).result}</div>
+            ])}
+
+            <hr></hr>
+
+            { this.state.flip && this.state.show && ([
+            <div className="card-back">
+              {unified().use(parse).use(remark2react).processSync(front).result}</div>
+            ])}
             { !this.state.flip && this.state.show && ([
-            <div className="card-back">{back}<br></br><br></br></div>
+            <div className="card-back">
+              {unified().use(parse).use(remark2react).processSync(back).result}</div>
               ])}
 
-            {!this.state.show && {back} && {front} && {notes} && (
+            {!this.state.show && {back} && {front} && {notes} && ([
               <div className="hidden-text">
-                ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• •••<br></br>
-                ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• •••<br></br>
-                ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• •••<br></br>
+                <hr></hr>
               </div>
-              )}
-
+            ])}
             {this.state.show && notes && (
               <div className="card-notes-row">
                 <div className="card-section-title">Notes </div>
-                <div className="card-notes">{notes}</div>
+                <div className="card-back card-notes">
+                {unified().use(parse).use(remark2react).processSync(notes).result}
+                </div>
               </div>
             )}
           </div>

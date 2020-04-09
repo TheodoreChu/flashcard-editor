@@ -37,10 +37,10 @@ export default class EditEntry extends React.Component {
   // this is the default behavior for 'input' boxes but not 'textarea'
   // we want it to be control + enter
   onKeyDown = (e) => {
-    let myMap = new Map();
-    myMap.set(e.key, e.type == 'keyup');
+    let keyMap = new Map();
+    keyMap.set(e.key, e.type == 'keydown');
     //const submit = document.querySelector('#submit');
-    if (myMap.get('Control') && myMap.get('Enter')) {
+    if (keyMap.get('Control') && keyMap.get('Enter')) {
       e.preventDefault();
       this.onSave(e);
       //submit.click();
