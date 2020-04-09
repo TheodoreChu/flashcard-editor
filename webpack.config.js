@@ -3,7 +3,6 @@ const path = require('path');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 //const ProposalClassProperties = require('@babel/plugin-proposal-class-properties');
-//const ExtractTextPlugin = require('extract-text-webpack-plugin');
 //const uglifyJsPlugin = webpack.optimize.UglifyJsPlugin;
 
 module.exports = {
@@ -18,8 +17,7 @@ module.exports = {
   },
   entry: [
     path.resolve(__dirname, 'app/main.js'),
-    path.resolve(__dirname, 'app/stylesheets/main.scss'),
-    path.resolve(__dirname, 'app/stylesheets/katex/katex.css')
+    path.resolve(__dirname, 'app/stylesheets/main.scss')
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -32,24 +30,18 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.s[ac]ss$/i,
+        test: /\.s?css$/,
         use: [
-          // Creates `style` nodes from JS strings
-          'style-loader',
-          // Translates CSS into CommonJS
-          'css-loader',
-          // Compiles Sass to CSS
-          'sass-loader',
-        ],
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          "sass-loader"
+        ]
       },
-      { test: /\.(woff|woff2|eot|ttf|otf)$/,
+      { 
+        test: /\.(woff|woff2|eot|ttf|otf)$/,
         use: [
         'file-loader', 'url-loader'
-        ], },
-      {
-        test: /\.css$/,
-        include: path.resolve(__dirname, 'app'),
-        use: ['style-loader','css-loader', 'sass-loader', MiniCssExtractPlugin.loader]//, 'style-loader!css-loader']
+        ],
       },
       {
         test: /\.js[x]?$/,
@@ -78,13 +70,12 @@ module.exports = {
       ),
       katex: path.join(
         __dirname,
-        //'node_modules/katex/dist/katex.css'
         'app/stylesheets/katex/katex.css'
       )
     }
   },
   plugins: [
-    new MiniCssExtractPlugin(),
+    new MiniCssExtractPlugin({filename: 'dist.css'}),
     new webpack.DefinePlugin({
       'process.env.NODE_ENV': JSON.stringify('production')
     }),
