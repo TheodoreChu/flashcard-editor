@@ -211,6 +211,15 @@ html {
         text-decoration: underline;
       }
 
+      blockquote {
+        margin: 0;
+        margin-top: 0;
+        margin-bottom: 16px;
+        padding: 0 1em;
+        color: #6a737d;
+        border-left: .25em solid #dfe2e5;
+      }
+
       .card-section-title {
         font-size: var(--sn-stylekit-font-size-h3);
       }
