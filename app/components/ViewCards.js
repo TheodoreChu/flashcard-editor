@@ -5,13 +5,21 @@ import CardMenu from './CardMenu';
 import unified from 'unified'
 import parse from 'remark-parse'
 import remark2react from 'remark-react'
+import remark2rehype from 'remark-rehype'
+import rehype2react from 'rehype-react'
 
 // additional for math
-//import remarkmath from 'remark-math';
+//import math from 'remark-math';
+const math = require('remark-math');
 //import rehypeKatex from 'rehype-katex';
+const rehypeKatex = require('rehype-katex')
 
 //for syntax highlighting
-//import highlight from 'remark-highlight.js';
+//import attacher from 'rehype-highlight';
+var highlight = require('rehype-highlight');
+
+import sanitize from 'rehype-sanitize';
+const emoji = require('remark-emoji');
 
 window.addEventListener("keydown", function (event) {
   if (event.defaultPrevented) {
@@ -19,6 +27,16 @@ window.addEventListener("keydown", function (event) {
   }
 }, true);
 console.log("event listener added")
+
+var processor = unified()
+  .use(parse)
+  .use(emoji)
+  .use(math)
+  .use(remark2rehype)
+  .use(rehypeKatex) // css doesn't load properly
+  .use(highlight) // doesn't work
+  .use(rehype2react, {createElement: React.createElement})
+  .use(sanitize)
 
 export default class ViewCards extends React.Component {
   constructor(props) {
@@ -71,13 +89,15 @@ export default class ViewCards extends React.Component {
           <div className="card-info" onClick={this.onToggleShow}>
             <div className="card-content" onClick={this.onToggleShow}>
               { // View Mode
-                this.state.flip && this.state.viewMode && ([
+                this.state.flip && this.state.viewMode && ([ // flip on 
                 <div className="card-back">
                   {unified().use(parse).use(remark2react).processSync(back).result}</div>,
                 ])}
-              { !this.state.flip && this.state.viewMode && ([
+              { !this.state.flip && this.state.viewMode && ([ // flip off 
                 <div className="card-back">
-                  {unified().use(parse).use(remark2react).processSync(front).result}</div>,
+                  {processor.processSync(front).result}
+                  {unified().use(parse).use(remark2rehype).use(math).use(rehypeKatex).use(rehype2react, { createElement: React.createElement }).processSync(front).result}
+                  </div>,
                 ])}
               { this.state.viewMode && ([
                 <div class="card-bar"><hr></hr></div>

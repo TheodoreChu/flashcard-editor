@@ -50,6 +50,21 @@ export default class EditEntry extends React.Component {
       //submit.click();
       //alert('You pressed Control and Enter');
     }
+    else if (keyMap.get('Control') && keyMap.get('s')) {
+      e.preventDefault();
+      keyMap.set('Control', false);
+      keyMap.set('s', false);
+      this.onSave(e);
+    }
+    else if (keyMap.get('Escape')) {
+      e.preventDefault();
+      keyMap.set('Escape', false);
+      this.props.onCancel();
+    }
+  }
+
+  onKeyUp = (e) => {
+    keyMap.set(e.key, false);
   }
 
   render() {
@@ -71,6 +86,7 @@ export default class EditEntry extends React.Component {
                 value={entry.front}
                 onChange={this.handleInputChange}
                 onKeyDown={this.onKeyDown}
+                onKeyUp={this.onKeyUp}
                 type="text"
               />
               Back:
@@ -81,6 +97,7 @@ export default class EditEntry extends React.Component {
                 value={entry.back}
                 onChange={this.handleInputChange}
                 onKeyDown={this.onKeyDown}
+                onKeyUp={this.onKeyUp}
                 type="text"
               />
               Notes
@@ -90,7 +107,7 @@ export default class EditEntry extends React.Component {
                 placeholder="Notes"
                 value={entry.notes}
                 onChange={this.handleInputChange}
-                onKeyDown={this.onKeyDown}
+                onKeyUp={this.onKeyUp}
                 type="text"
               />
               <div className="sk-panel-row">
