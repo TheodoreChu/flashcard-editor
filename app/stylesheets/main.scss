@@ -60,18 +60,19 @@ html {
   
   .sk-panel-content {
     height: inherit !important;
-
+    padding: 1.6rem 2rem;
     margin: inherit auto;
     //width: 700px;
   }
   .sk-input.contrast.textarea {
-    height: 45px; //60px for double lines
+    min-height: 45px; //60px for double lines
     padding: 9px 10px;//0.7rem 0.8rem;
     margin: 0.30rem 0;
     overflow: visible;
     //font-size: var(--sn-stylekit-font-size-h3);
-    max-width: 627px; // 648 - 10*2 - 1
-    width: 100%;
+    max-width: inherit;
+    //max-width: 627px; // 648 - 10*2 - 1
+    width: calc(100% - 20px);
     //outline: 0; // doesn't do anything
     resize: vertical;
     font-family: var(--sn-stylekit-sans-serif-font);
@@ -79,7 +80,7 @@ html {
 }
 .sk-notification {
   // Hacking sk-notification style
-  overflow: visible !important; // We need this for the dropdown menu
+  //overflow: visible !important; // We need this for the dropdown menu
   margin: 10px 0 0 0 !important;
   //padding: 28px 14px 28px 28px !important;
   padding: 21px 14px 21px 28px !important; //top left bottom right 
@@ -288,10 +289,18 @@ html {
     margin-bottom: 8px;
     align-self: flex-start;
 
+    .card-menu > .sk-button {
+      display: flex;
+      flex-direction: column;
+      .sk-label {
+        text-align:right;
+      }
+    }
+
     .sk-menu-panel {
-      position: absolute;
+      /*position: absolute;
       right: 0;
-      z-index: 200;
+      z-index: 200;*/
 
       .sk-menu-panel-row {
         padding: .5rem 1rem;

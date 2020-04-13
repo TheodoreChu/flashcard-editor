@@ -6,8 +6,8 @@ import ConfirmDialog from './ConfirmDialog';
 import DataErrorAlert from './DataErrorAlert';
 import EditEntry from './EditEntry';
 
-import ViewViewMode from './ViewViewMode';
-import ViewStudyMode from './ViewStudyMode';
+import ViewMode from './ViewMode';
+import StudyMode from './StudyMode';
 import HeaderMenu from './HeaderMenu';
 
 const initialState = {
@@ -453,7 +453,7 @@ export default class Flashcards extends React.Component {
 
         <div id="content">
         {this.state.studyFlip && !this.state.editCardMode && ( // if show mode is on and flip mode is off
-            <ViewStudyMode
+            <StudyMode
               id={this.state.randomCardID}
               onNextCard={this.onNextCard}
               flip={this.state.flip}
@@ -467,7 +467,7 @@ export default class Flashcards extends React.Component {
             />
           )}
           {this.state.studyShow && !this.state.editCardMode && ( // if show mode is on and flip mode is off
-            <ViewStudyMode
+            <StudyMode
               id={this.state.randomCardID}
               onNextCard={this.onNextCard}
               flip={this.state.flip}
@@ -481,7 +481,7 @@ export default class Flashcards extends React.Component {
             />
           )}
           {this.state.show && !this.state.flip && !this.state.editCardMode && this.state.viewMode && ( // if show mode is on and flip mode is off
-            <ViewViewMode
+            <ViewMode
               flip={this.state.flip}
               show={this.state.show}
               studyFlip={this.state.studyFlip}
@@ -493,7 +493,7 @@ export default class Flashcards extends React.Component {
             />
           )}
           {this.state.show && this.state.flip && !this.state.editCardMode && this.state.viewMode &&( // if show mode is on and flip mode is on
-            <ViewViewMode
+            <ViewMode
               flip={this.state.flip}
               show={this.state.show}
               studyFlip={this.state.studyFlip}
@@ -505,7 +505,7 @@ export default class Flashcards extends React.Component {
             />
           )}
           {!this.state.show && !this.state.flip && !this.state.editCardMode && this.state.viewMode &&( // if show mode is off and flip mode is off
-            <ViewViewMode
+            <ViewMode
               flip={this.state.flip}
               show={this.state.show}
               studyFlip={this.state.studyFlip}
@@ -517,7 +517,7 @@ export default class Flashcards extends React.Component {
             />
           )}
           {!this.state.show && this.state.flip && !this.state.editCardMode && this.state.viewMode &&( // if show mode is off and flip mode is on 
-            <ViewViewMode
+            <ViewMode
               flip={this.state.flip}
               show={this.state.show}
               studyFlip={this.state.studyFlip}

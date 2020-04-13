@@ -1,24 +1,17 @@
 import React from 'react';
 import CardMenu from './CardMenu';
-//import { Remarkable } from 'remarkable';
-//import ReactDom from 'react-dom'
 import unified from 'unified'
 import parse from 'remark-parse'
-import remark2react from 'remark-react'
 import remark2rehype from 'remark-rehype'
 import rehype2react from 'rehype-react'
 
-// additional for math
-//import math from 'remark-math';
+// for LaTeX
 const math = require('remark-math');
-//import rehypeKatex from 'rehype-katex';
 const rehypeKatex = require('rehype-katex')
 
 //for syntax highlighting
 //import attacher from 'rehype-highlight';
 var highlight = require('rehype-highlight');
-
-import sanitize from 'rehype-sanitize';
 const emoji = require('remark-emoji');
 
 window.addEventListener("keydown", function (event) {
@@ -30,13 +23,11 @@ console.log("event listener added")
 
 var processor = unified()
   .use(parse)
-  .use(emoji)
-  .use(math)
   .use(remark2rehype)
-  .use(rehypeKatex) // css doesn't load properly
-  .use(highlight) // doesn't work
+  .use(math)
+  .use(rehypeKatex) // css doesn't load properly//.use(emoji) //.use(highlight) // doesn't work
+  .use(emoji)
   .use(rehype2react, {createElement: React.createElement})
-  .use(sanitize)
 
 export default class ViewCards extends React.Component {
   constructor(props) {
@@ -83,20 +74,21 @@ export default class ViewCards extends React.Component {
 					<div className="card-section-title">Study Show Mode</div>
 				)}*/
     return (
-      <div className="sk-notification sk-base">
-      <div className="card-entry">
-        <div className="card-details">
-          <div className="card-info" onClick={this.onToggleShow}>
+      <div className="card-edit sk-panel">
+        <div className="sk-panel-content">
+          <div className="sk-panel-section">      
+            <div className="card-entry">
+            <div className="card-details">
+            <div className="card-info" onClick={this.onToggleShow}>
             <div className="card-content" onClick={this.onToggleShow}>
               { // View Mode
                 this.state.flip && this.state.viewMode && ([ // flip on 
                 <div className="card-back">
-                  {unified().use(parse).use(remark2react).processSync(back).result}</div>,
+                  {processor.processSync(back).result}</div>,
                 ])}
               { !this.state.flip && this.state.viewMode && ([ // flip off 
                 <div className="card-back">
                   {processor.processSync(front).result}
-                  {unified().use(parse).use(remark2rehype).use(math).use(rehypeKatex).use(rehype2react, { createElement: React.createElement }).processSync(front).result}
                   </div>,
                 ])}
               { this.state.viewMode && ([
@@ -104,47 +96,47 @@ export default class ViewCards extends React.Component {
                 ])}
               { this.state.flip && this.state.show && this.state.viewMode && ([
                 <div className="card-back">
-                {unified().use(parse).use(remark2react).processSync(front).result}</div>,
+                {processor.processSync(front).result}</div>,
                 ])}
               { !this.state.flip && this.state.show && this.state.viewMode && ([ // if flip is off
                 <div className="card-back">
-                {unified().use(parse).use(remark2react).processSync(back).result}</div>,
+                {processor.processSync(back).result}</div>,
                 ])}
               
               { // Study Flip mode 
                 this.state.flip && !this.state.show && this.state.studyFlip && ([ // if flip is on 
                 //<div className="card-section-title" >Back: </div>,
                 <div className="card-back study-mode">
-                {unified().use(parse).use(remark2react).processSync(back).result}</div>,
+                {processor.processSync(back).result}</div>,
                 //<div className="card-section-title" >Front:</div>,
                 ])}
               { !this.state.flip && !this.state.show && this.state.studyFlip && ([ // if flip is off
                 //<div className="card-section-title">Front:</div>,
                 <div className="card-back study-mode">
-                  {unified().use(parse).use(remark2react).processSync(front).result}</div>,
+                  {processor.processSync(front).result}</div>,
                 ])}
 
               { this.state.flip && this.state.show && this.state.studyFlip && ([ // if flip is on
                 <div className="card-back study-mode">
-                {unified().use(parse).use(remark2react).processSync(front).result}</div>,
+                {processor.processSync(front).result}</div>,
                 ])}
               { !this.state.flip && this.state.show && this.state.studyFlip && ([ // if flip is off
                 //<div className="card-section-title" >Back: </div>,
                 <div className="card-back study-mode">
-                  {unified().use(parse).use(remark2react).processSync(back).result}</div>,
+                  {processor.processSync(back).result}</div>,
                 ])}
 
               { // Study Show mode
                 this.state.flip && this.state.studyShow && ([ // if flip is on 
                 //<div className="card-section-title" >Back: </div>,
                 <div className="card-back study-mode">
-                    {unified().use(parse).use(remark2react).processSync(back).result}</div>,
+                  {processor.processSync(back).result}</div>,
                 //<div className="card-section-title" >Front:</div>,
                 ])}
               { !this.state.flip && this.state.studyShow && ([ // if flip is off
                 //<div className="card-section-title">Front:</div>,
                 <div className="card-back study-mode">
-                {unified().use(parse).use(remark2react).processSync(front).result}</div>,
+                {processor.processSync(front).result}</div>,
                 //<div className="card-section-title" >Back: </div>,
                 ])}  
               { this.state.studyShow && ([
@@ -152,11 +144,11 @@ export default class ViewCards extends React.Component {
                 ])}  
               { this.state.flip && this.state.show && this.state.studyShow && ([ // if flip is on
                 <div className="card-back study-mode">
-                {unified().use(parse).use(remark2react).processSync(front).result}</div>,
+                {processor.processSync(front).result}</div>,
                 ])}
               { !this.state.flip && this.state.show && this.state.studyShow && ([ // if flip is off
               <div className="card-back study-mode">
-              {unified().use(parse).use(remark2react).processSync(back).result}</div>,
+              {processor.processSync(back).result}</div>,
               ])}
 
               {!this.state.show && ([
@@ -170,7 +162,7 @@ export default class ViewCards extends React.Component {
                     <hr></hr>
                   </div>,
                   <div className="card-back" >
-                    {unified().use(parse).use(remark2react).processSync(notes).result}
+                    {processor.processSync(notes).result}
                   </div>,
               ])}
             </div>
@@ -199,8 +191,10 @@ export default class ViewCards extends React.Component {
               onRemove={onRemove.bind(this, id)}
             />
         </div>
-      </div>
     </div>
+    </div>
+    </div>
+        </div>
   );
   }
 }

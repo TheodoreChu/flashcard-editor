@@ -107,6 +107,7 @@ export default class EditEntry extends React.Component {
                 placeholder="Notes"
                 value={entry.notes}
                 onChange={this.handleInputChange}
+                onKeyDown={this.onKeyDown}
                 onKeyUp={this.onKeyUp}
                 type="text"
               />
