@@ -17,7 +17,6 @@ export default class StudyMode extends React.Component {
           flip={flip}
           studyShow={studyShow}
           studyFlip={studyFlip}
-          //key={idx}
           id={id}
           entry={entries[id]}
           viewMode={viewMode}

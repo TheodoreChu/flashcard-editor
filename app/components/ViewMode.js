@@ -1,6 +1,4 @@
 import React from 'react';
-//import StudyMode from './StudyMode'
-//import ViewMode from './ViewMode';
 import ViewCards from './ViewCards';
 
 const ViewMode = ({ entries, onEdit, onRemove, show, flip, studyShow, studyFlip, viewMode }) => (
@@ -11,7 +9,6 @@ const ViewMode = ({ entries, onEdit, onRemove, show, flip, studyShow, studyFlip,
         flip={flip}
         studyShow={studyShow}
         studyFlip={studyFlip}
-        //key={idx}
         id={id}
         entry={entry}
         viewMode={viewMode}
@@ -22,4 +19,4 @@ const ViewMode = ({ entries, onEdit, onRemove, show, flip, studyShow, studyFlip,
   </div>
 );
 
-export default ViewViewMode;
+export default ViewMode;
