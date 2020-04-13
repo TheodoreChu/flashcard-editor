@@ -4,7 +4,7 @@ import { EditorKit, EditorKitDelegate } from 'sn-editor-kit';
 
 import ConfirmDialog from './ConfirmDialog';
 import DataErrorAlert from './DataErrorAlert';
-import EditEntry from './EditEntry';
+import EditCard from './EditCard';
 
 import ViewMode from './ViewMode';
 import StudyMode from './StudyMode';
@@ -529,7 +529,7 @@ export default class Flashcards extends React.Component {
             />
           )}
           {this.state.editCardMode && (
-            <EditEntry
+            <EditCard
               id={editEntry.id}
               entry={editEntry.entry}
               onSave={this.onSave}

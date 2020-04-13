@@ -34,7 +34,7 @@ export default class CardMenu extends React.Component {
           <div className="sk-label">•••</div>
         </div>
         {this.state.show && [
-          <div className="card-overlay" onClick={this.onToggle} />,
+          //<div className="card-overlay" onClick={this.onToggle} />,
           <div className="sk-menu-panel">
             <div className="sk-menu-panel-row" onClick={onFlip}>
               <div className="sk-label">Flip</div>

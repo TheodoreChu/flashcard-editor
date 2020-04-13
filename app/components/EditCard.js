@@ -2,7 +2,7 @@ import React from 'react';
 
 let keyMap = new Map();
 
-export default class EditEntry extends React.Component {
+export default class EditCard extends React.Component {
   static defaultProps = {
     entry: {
       forward: true,
