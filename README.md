@@ -4,14 +4,18 @@
 
 [![License](https://img.shields.io/github/license/theodorechu/flashcards-editor?color=blue)](https://github.com/theodorechu/flashcards-editor/blob/master/LICENSE)
 [![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/theodorechu/flashcards-editor/graphs/commit-activity)
-[![Not ready for use](https://img.shields.io/badge/Ready%20for%20use%3F-no-red)](https://github.com/TheodoreChu/flashcards-editor#development)
+[![Not ready for use](https://img.shields.io/badge/Ready%20for%20use%3F-no-red)](https://github.com/theodorechu/flashcards-editor#development)
 [![GitHub issues](https://img.shields.io/github/issues/theodorechu/flashcards-editor.svg)](https://github.com/theodorechu/flashcards-editor/issues/)
 [![Slack](https://img.shields.io/badge/slack-standardnotes-CC2B5E.svg?style=flat&logo=slack)](https://standardnotes.org/slack)
 [![Twitter Follow](https://img.shields.io/badge/follow-%40standardnotes-blue.svg?style=flat&logo=twitter)](https://twitter.com/standardnotes)
 
 </div>
 
-The Flashcards Editor is a [Custom Editor](https://standardnotes.org/help/77/what-are-editors) for [Standard Notes](https://standardnotes.org). It is currently in development and not ready for use.
+The Flashcards Editor is a [Custom Editor](https://standardnotes.org/help/77/what-are-editors) for [Standard Notes](https://standardnotes.org). It is currently in development. When it is ready for use, it will be part of the [Standard Notes Extensions](https://standardnotes.org/extensions). :smile:
+
+## Features
+- GitHub flavored Markdown via [Unified/Remark](https://github.com/remarkjs/remark)
+- LaTeX via hosted [KaTeX](https://github.com/KaTeX/KaTeX)
 
 ## Development
 
