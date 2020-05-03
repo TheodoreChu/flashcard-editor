@@ -5,31 +5,29 @@ import parse from 'remark-parse'
 import remark2rehype from 'remark-rehype'
 import rehype2react from 'rehype-react'
 
-// for LaTeX
 const math = require('remark-math');
 const rehypeKatex = require('rehype-katex')
-
-//for syntax highlighting
-//import attacher from 'rehype-highlight';
-var highlight = require('rehype-highlight');
+const highlight = require('rehype-highlight');
 const emoji = require('remark-emoji');
-
-window.addEventListener("keydown", function (event) {
-  if (event.defaultPrevented) {
-    return; // Do nothing if the event was already processed
-  }
-}, true);
-console.log("event listener added")
+const externalLinks = require('remark-external-links');
+const toc = require('remark-toc');
+const footnotes = require('remark-footnotes');
+const slug = require('remark-slug');
 
 var processor = unified()
-  .use(parse)
+  .use(parse)  
+  .use(slug)
+  .use(toc, {maxDepth:6})
+  .use(externalLinks)
+  .use(footnotes, {inlineNotes: true})
   .use(remark2rehype)
   .use(math)
-  .use(rehypeKatex) // css doesn't load properly//.use(emoji) //.use(highlight) // doesn't work
+  .use(rehypeKatex) 
+  .use(highlight, {ignoreMissing: true})
   .use(emoji)
   .use(rehype2react, {createElement: React.createElement})
 
-export default class ViewCards extends React.Component {
+  export default class ViewCards extends React.Component {
   constructor(props) {
   super(props);
 
