@@ -11,6 +11,60 @@ html {
   background-color: transparent;
 }
 
+* {
+  // To prevent gray flash when focusing input on mobile Safari
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+
+button {
+  font-family: var(--sn-stylekit-sans-serif-font);
+  background-color: transparent;
+}
+
+button:hover {
+  background-color: var(--sn-stylekit-contrast-background-color);
+}
+
+button:focus {
+  outline: -webkit-focus-ring-color auto 1px;
+  outline-color: -webkit-focus-ring-color;
+  outline-style: auto;
+  outline-width: 1px;
+}
+
+.sn-component {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+
+  .sk-panel {
+    flex-grow: unset;
+    max-width:700px;
+    width: 100%;
+    }
+  
+  .sk-panel-content {
+    height: inherit !important;
+    padding: 1.6rem 2rem;
+    margin: inherit auto;
+    //width: 700px;
+  }
+  .sk-input.contrast.textarea {
+    min-height: 45px; //60px for double lines
+    padding: 9px 10px;//0.7rem 0.8rem;
+    margin: 0.30rem 0;
+    overflow: visible;
+    //font-size: var(--sn-stylekit-font-size-h3);
+    max-width: inherit;
+    //max-width: 627px; // 648 - 10*2 - 1
+    width: calc(100% - 20px);
+    //outline: 0; // doesn't do anything
+    resize: vertical;
+    font-family: var(--sn-stylekit-sans-serif-font);
+    font-size: 16px;
+  }
+}
+
 #header {
   border-bottom: 0px;
   //border-bottom: 1px solid var(--sn-stylekit-border-color);
@@ -40,45 +94,112 @@ html {
   padding: 0 10px;
   display: flex;
   justify-content: center;
-}
 
-* {
-  // To prevent gray flash when focusing input on mobile Safari
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-}
-
-.sn-component {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-
-  .sk-panel {
-    flex-grow: unset;
-    max-width:700px;
-    width: 100%;
-    }
+  .hljs {
+    color: unset;
+  }
   
-  .sk-panel-content {
-    height: inherit !important;
-    padding: 1.6rem 2rem;
-    margin: inherit auto;
-    //width: 700px;
+  code, pre {
+    font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace,
   }
-  .sk-input.contrast.textarea {
-    min-height: 45px; //60px for double lines
-    padding: 9px 10px;//0.7rem 0.8rem;
-    margin: 0.30rem 0;
+  code {
+    box-sizing: border-box;
+    word-wrap: break-word;
+    padding: .2em .4em;
+    margin: 0;
+    font-size: 85%;
+    background-color: var(--sn-stylekit-contrast-background-color); // rgba(27,31,35,.05);
+    border-radius: 3px;
+  }
+
+  pre {
+    padding: 16px;
+    overflow: auto;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: var(--sn-stylekit-contrast-background-color); // rgba(27,31,35,.05);// #f6f8fa; the latter doesn't work well on dark mode
+    border-radius: 3px;
+    word-wrap: normal;
+    margin-top: 0;
+    margin-bottom: 16px;
+  }
+  
+  pre > code {
+    padding: 0;
+    margin: 0;
+    font-size: 100%;
+    word-break: normal;
+    white-space: pre;
+    background: transparent;
+    background-color: transparent;
+    border: 0;
+  }
+
+  pre code {
+    display: inline;
+    max-width: auto;
+    padding: 0;
+    margin: 0;
     overflow: visible;
-    //font-size: var(--sn-stylekit-font-size-h3);
-    max-width: inherit;
-    //max-width: 627px; // 648 - 10*2 - 1
-    width: calc(100% - 20px);
-    //outline: 0; // doesn't do anything
-    resize: vertical;
-    font-family: var(--sn-stylekit-sans-serif-font);
-    font-size: 16px;
+    line-height: inherit;
+    word-wrap: normal;
+    background-color: initial;
+    border: 0;
+    
+  }
+
+  a {
+    color: #086dd6;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  blockquote {
+    margin: 0;
+    margin-top: 0;
+    margin-bottom: 16px;
+    padding: 0 1em;
+    color: #6a737d;
+    border-left: .25em solid #dfe2e5;
+  }
+
+  hr {
+    border: 0.5px solid var(--sn-stylekit-border-color);
+  }
+
+  img {
+    max-width: 100%; // 645.500px;
+  }
+
+  table {
+
+    display: block;
+    width: 100%;
+    overflow: auto;
+    margin-top: 0;
+    margin-bottom: 16px;
+    border-spacing: 0;
+    border-collapse: collapse;
+    
+    tr {
+      background-color: transparent; // #fff;
+      border-top: 1px solid #c6cbd1;
+    }
+
+    td, th {
+      padding: 6px 13px;
+      border: 1px solid #dfe2e5;
+    }
+
+    tr:nth-child(2n) {
+      background-color: var(--sn-stylekit-contrast-background-color)// #f6f8fa;
+    }
   }
 }
+
 .sk-notification {
   // Hacking sk-notification style
   //overflow: visible !important; // We need this for the dropdown menu
@@ -145,102 +266,6 @@ html {
     .card-info {
       min-width: inherit;
       width: 100%;
-      
-      code, pre {
-        font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace,
-      }
-      code {
-        box-sizing: border-box;
-        word-wrap: break-word;
-        padding: .2em .4em;
-        margin: 0;
-        font-size: 85%;
-        background-color: rgba(27,31,35,.05);
-        border-radius: 3px;
-      }
-
-      pre {
-        padding: 16px;
-        overflow: auto;
-        font-size: 85%;
-        line-height: 1.45;
-        background-color: rgba(27,31,35,.05);// #f6f8fa; the latter doesn't work well on dark mode
-        border-radius: 3px;
-        word-wrap: normal;
-        margin-top: 0;
-        margin-bottom: 16px;
-      }
-      
-      pre > code {
-        padding: 0;
-        margin: 0;
-        font-size: 100%;
-        word-break: normal;
-        white-space: pre;
-        background: transparent;
-        background-color: transparent;
-        border: 0;
-      }
-
-      pre code {
-        display: inline;
-        max-width: auto;
-        padding: 0;
-        margin: 0;
-        overflow: visible;
-        line-height: inherit;
-        word-wrap: normal;
-        background-color: initial;
-        border: 0;
-        
-      }
-
-      a {
-        color: #086dd6;
-        text-decoration: none;
-      }
-
-      a:hover {
-        text-decoration: underline;
-      }
-
-      blockquote {
-        margin: 0;
-        margin-top: 0;
-        margin-bottom: 16px;
-        padding: 0 1em;
-        color: #6a737d;
-        border-left: .25em solid #dfe2e5;
-      }
-
-      hr {
-        border: 0.5px solid var(--sn-stylekit-border-color);
-      }
-
-      table {
-
-        display: block;
-        width: 100%;
-        overflow: auto;
-        margin-top: 0;
-        margin-bottom: 16px;
-        border-spacing: 0;
-        //border-collapse: collapse;
-        
-        tr {
-          background-color: #fff;
-          border-top: 1px solid #c6cbd1;  
-        }
-
-        td, th {
-          padding: 6px 13px;
-          border: 1px solid #dfe2e5;
-        }
-
-        tr:nth-child(2n) {
-          background-color: #f6f8fa;
-        }
-      }
 
       .card-bar hr {
         border: 0.5px solid var(--sn-stylekit-border-color);
