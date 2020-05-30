@@ -221,25 +221,27 @@ export default class Flashcards extends React.Component {
     if (this.state.randomCardList.length === 0 && this.state.entries.length > 0) {
       this.getRandomCardList();
     }
-    // if studyFlip is turned on, then turn it off and turn on viewMode
-    if (this.state.studyFlip) {
-      this.setState({
-        studyFlip: false,
-        studyShow: false,
-        viewMode: true,
-        editCardMode: false,
-        editEntry: null
-      });
-    }
-    // if studyFlip is turned off, then turn it on and turn off viewMode
-    else if (!this.state.studyFlip) {
-      this.setState({
-        studyFlip: true,
-        studyShow: false,
-        viewMode: false,
-        editCardMode: false,
-        editEntry: null
-      });
+    if (this.state.entries.length > 0) {
+      // if studyFlip is turned on, then turn it off and turn on viewMode
+      if (this.state.studyFlip) {
+        this.setState({
+          studyFlip: false,
+          studyShow: false,
+          viewMode: true,
+          editCardMode: false,
+          editEntry: null
+        });
+      }
+      // if studyFlip is turned off, then turn it on and turn off viewMode
+      else if (!this.state.studyFlip) {
+        this.setState({
+          studyFlip: true,
+          studyShow: false,
+          viewMode: false,
+          editCardMode: false,
+          editEntry: null
+        });
+      }
     }
   };
 
@@ -247,25 +249,27 @@ export default class Flashcards extends React.Component {
     if (this.state.randomCardList.length === 0 && this.state.entries.length > 0) {
       this.getRandomCardList();
     }
-    // if studyShow is turned on, then turn it off and turn on viewMode
-    if (this.state.studyShow) {
-      this.setState({
-        studyFlip: false,
-        studyShow: false,
-        viewMode: true, 
-        editCardMode: false,
-        editEntry: null
-      });
-    }
-    // if studyShow is turned off, then turn it on and turn off viewMode
-    else if (!this.state.studyShow) {
-      this.setState({
-        studyFlip: false,
-        studyShow: true,
-        viewMode: false,
-        editCardMode: false,
-        editEntry: null
-      });
+    if (this.state.entries.length > 0) {
+      // if studyShow is turned on, then turn it off and turn on viewMode
+      if (this.state.studyShow) {
+        this.setState({
+          studyFlip: false,
+          studyShow: false,
+          viewMode: true, 
+          editCardMode: false,
+          editEntry: null
+        });
+      }
+      // if studyShow is turned off, then turn it on and turn off viewMode
+      else if (!this.state.studyShow) {
+        this.setState({
+          studyFlip: false,
+          studyShow: true,
+          viewMode: false,
+          editCardMode: false,
+          editEntry: null
+        });
+      } 
     }
   };
 
@@ -405,49 +409,49 @@ export default class Flashcards extends React.Component {
     //this.getRandomCardList();
     //let cardsList = this.state.entries.filter(entry => this.state.entries.indexOf(entry) > 0);
     return (
-      <div className="sn-component">
+      <div tabIndex="0" className="sn-component">
         {this.state.parseError && <DataErrorAlert />}
         <div id="header">
         <div className="sk-button-group">
-            <div className="sk-button info">
+            <button onClick={this.onStudyFlip} className={"sk-button info " + (this.state.studyFlip ? 'on' : 'off' )}>
               {this.state.entries.length > 0 ? ( // if cardsList is empty, button doesn't do anything
-                <div className="sk-label" onClick={this.onStudyFlip}> Study Flip </div>
+                <div className="sk-label"  > Study Flip </div>
               ) : (
                 <div className="sk-label"> Study Flip </div>
               )}
-            </div>
-            <div className="sk-button info">
+            </button>
+            <button onClick={this.onStudyShow} className={"sk-button info " + (this.state.studyShow ? 'on' : 'off' )}>
               {this.state.entries.length > 0 ? ( // if cardsList is empty, button doesn't do anything
-                <div className="sk-label" onClick={this.onStudyShow}> Study Show </div>
+                <div className="sk-label"> Study Show </div>
               ) : (
                 <div className="sk-label"> Study Show </div>
               )}
-            </div>
-            <div className="sk-button info" onClick={this.onFlip}>
+            </button>
+            <button onClick={this.onFlip} className={"sk-button info " + (this.state.flip ? 'on' : 'off' )}>
               {!this.state.flip && ( // if show mode is false
                 <div className="sk-label" >Flip All</div>
               )}
               {this.state.flip && ( // if  show mode is true 
                 <div className="sk-label" >Flip Back All</div>
               )}
-            </div>
-            <div className="sk-button info" onClick={this.onShow}>
+            </button>
+            <button onClick={this.onShow} className={"sk-button info " + (this.state.show ? 'on' : 'off' )}>
               {!this.state.show && ( // if show mode is false
                 <div className="sk-label" >Show All</div>
               )}
               {this.state.show && ( // if  show mode is true 
                 <div className="sk-label" >Hide All</div>
               )}
-            </div>
-            <div className="sk-button info" onClick={this.onAddNew}>
+            </button>
+            <button onClick={this.onAddNew} className={"sk-button info " + (this.state.editCardMode ? 'on' : 'off' )}>
               <div className="sk-label">Add New</div>
-            </div>
-            <div className="sk-button info" onClick={this.getRandomCardList}>
+            </button>
+            <button onClick={this.getRandomCardList} className="sk-button info off" >
               <div className="sk-label">Settings</div>
-            </div>
-            <div className="sk-button info" onClick={this.onShuffleCards}>
+            </button>
+            <button onClick={this.onShuffleCards} className="sk-button info off" >
               <div className="sk-label">Shuffle</div>
-            </div>
+            </button>
           </div>
         </div>
 
@@ -538,7 +542,7 @@ export default class Flashcards extends React.Component {
           )}
           {this.state.confirmRemove && (
             <ConfirmDialog
-              title={`Remove ${editEntry.entry.front}`}
+              title={`Remove ${editEntry.entry.side1}`}
               message="Are you sure you want to remove this card?"
               onConfirm={() => this.removeEntry(editEntry.id)}
               onCancel={this.onCancel}

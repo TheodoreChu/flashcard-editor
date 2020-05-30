@@ -1,5 +1,30 @@
 @import '~stylekit';
 
+:root {
+  --sn-stylekit-font-size-editor: 16px;
+}
+
+@media screen and (max-width: 650px) {
+  :root {
+    --sn-stylekit-font-size-editor: 18px;
+  }
+  h1 {
+    font-size: 32px;
+  }
+  h2 {
+    font-size: 28px;
+  }
+  h3 {
+    font-size: 24px;
+  }
+  h4 {
+    font-size: 18px;
+  }
+  h5 {
+    font-size: 16px;
+  }
+}
+
 body,
 html {
   font-family: var(--sn-stylekit-sans-serif-font);
@@ -37,11 +62,20 @@ button:focus {
   flex-direction: column;
   min-height: 100vh;
 
-  .sk-panel {
+  .sk-panel.main {
     flex-grow: unset;
     max-width:700px;
     width: 100%;
+    margin: 10px 0px 0px 0px;
+
+    @media screen and (max-width: 725px) {
+      border-left: none;
+      border-right: none;
+      border-bottom: none;
+      box-shadow: none;
+      margin: 0;
     }
+  }
   
   .sk-panel-content {
     height: inherit !important;
@@ -52,16 +86,14 @@ button:focus {
   .sk-input.contrast.textarea {
     min-height: 45px; //60px for double lines
     padding: 9px 10px;//0.7rem 0.8rem;
-    margin: 0.30rem 0;
-    overflow: visible;
-    //font-size: var(--sn-stylekit-font-size-h3);
     max-width: inherit;
-    //max-width: 627px; // 648 - 10*2 - 1
-    width: calc(100% - 20px);
+    width: calc(100% - 22px);
     //outline: 0; // doesn't do anything
     resize: vertical;
+    overflow-y: auto;
     font-family: var(--sn-stylekit-sans-serif-font);
-    font-size: 16px;
+    font-size: var(--sn-stylekit-font-size-editor);
+    line-height: 1.9rem;
   }
 }
 
@@ -71,8 +103,8 @@ button:focus {
   background-color: var(--sn-stylekit-background-color);
   color: var(--sn-stylekit-foreground-color);
 
-  //min-height: 26px;
-  padding: 10px 0;
+  min-height: unset;
+  padding: 10px 0px;
   display: flex;
   flex-direction: column;
   align-items: center; // flex-end;
@@ -80,20 +112,59 @@ button:focus {
   margin-left: auto;
   margin-right: auto;
   width: 100%;
-  max-width: 700px;
+  
   .sk-button-group {
-    display: flex;
-    justify-content: space-between;
-    width: 80%;
+    max-width: 700px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    //display: flex;
+    //justify-content: space-between;
+    //width: 80%;
+
+    button {
+      border-width: 0px;
+      font-size: 15px;
+      @media screen and (max-width: 650px) {
+        font-size: 16px;
+      }
+
+      .sk-label { 
+        font-weight: inherit;
+      }
+    }
+    #menuButton {
+      background-color: inherit;
+      color: inherit;
+    }
+    .sk-button.info.off {
+      color: var(--sn-stylekit-info-color);
+      background-color: transparent;
+    }
+    .sk-button.info.off::before {
+      background-color: transparent;
+    }
+    .sk-button.info.off:hover {
+      //color: var(--sn-stylekit-info-contrast-color);
+      //background-color: var(--sn-stylekit-info-color);
+      background-color: var(--sn-stylekit-contrast-background-color);
+    }
+    .sk-button.info.off::before:hover {
+      //background-color: var(--sn-stylekit-info-color);
+      background-color: var(--sn-stylekit-contrast-background-color);
+    }
   }
 }
 
 #content {
   background-color: var(--sn-stylekit-contrast-background-color);
   flex: 1;
-  padding: 0 10px;
+  //padding: 0 10px;
   display: flex;
   justify-content: center;
+
+  @media screen and (max-width: 725px) {
+    padding: 0;
+  }
 
   .hljs {
     color: unset;
@@ -145,7 +216,6 @@ button:focus {
     word-wrap: normal;
     background-color: initial;
     border: 0;
-    
   }
 
   a {
@@ -198,6 +268,18 @@ button:focus {
       background-color: var(--sn-stylekit-contrast-background-color)// #f6f8fa;
     }
   }
+  
+  button {
+    border-width: 0px;
+    font-size: 14px;
+    @media screen and (max-width: 650px) {
+      font-size: 17px;
+    }
+    .sk-label { 
+      font-weight: normal !important;
+      font-size: 14px;
+    }
+  }
 }
 
 .sk-notification {
@@ -209,12 +291,50 @@ button:focus {
 }
 
 .card-dialog {
-  width: 450px;
+  max-width: 700px;
+  width: 100%;
   position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   z-index: 200;
+
+  .sk-panel-header {
+    .sk-button.info {
+      color: var(--sn-stylekit-info-color);
+      background-color: transparent;
+    }
+    .sk-button.info::before {
+      background-color: transparent;
+    }
+    .sk-button.info:hover {
+      color: var(--sn-stylekit-info-contrast-color);
+      background-color: var(--sn-stylekit-info-color);
+      a {
+        color: var(--sn-stylekit-info-contrast-color);
+      }
+    }
+    .sk-button.info::before:hover {
+      background-color: var(--sn-stylekit-info-color);
+    }
+  }
+
+  .sk-panel-row.settings {
+    input {
+      min-width: 250px;
+      font-size: 16px;
+      padding: 0.5rem
+    }
+  // Collapse on mobile
+  @media screen and (max-width: 480px) {
+      flex-direction: column !important;
+      align-items: flex-start !important;
+
+      input {
+        margin-top: 1rem;
+      }
+    }
+  }
 }
 
 .card-overlay {

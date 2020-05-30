@@ -1,6 +1,6 @@
 {
-    "identifier": "org.standardnotes.flashcards-editor",
-    "name": "Flashcards Editor",
+    "identifier": "com.theochu.flashcard-editor",
+    "name": "Flashcard Editor - Local",
     "content_type": "SN|Component",
     "area": "editor-editor",
     "version": "1.0.0",

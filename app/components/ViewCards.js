@@ -59,7 +59,7 @@ var processor = unified()
 
   render() {
       // get next card
-      const { front, back, notes } = this.props.entry;
+      const { side1, side2, side3, notes } = this.props.entry;
       const { id, onEdit, onRemove, onNextCard } = this.props;
       //{unified().use(parse).use(remark2react).processSync(this.state.text).result}
       /*••• ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• ••• •••<br></br>
@@ -72,7 +72,7 @@ var processor = unified()
 					<div className="card-section-title">Study Show Mode</div>
 				)}*/
     return (
-      <div className="card-edit sk-panel">
+      <div className="card-edit sk-panel main">
         <div className="sk-panel-content">
           <div className="sk-panel-section">      
             <div className="card-entry">
@@ -82,11 +82,11 @@ var processor = unified()
               { // View Mode
                 this.state.flip && this.state.viewMode && ([ // flip on 
                 <div className="card-back">
-                  {processor.processSync(back).result}</div>,
+                  {processor.processSync(side2).result}</div>,
                 ])}
               { !this.state.flip && this.state.viewMode && ([ // flip off 
                 <div className="card-back">
-                  {processor.processSync(front).result}
+                  {processor.processSync(side1).result}
                   </div>,
                 ])}
               { this.state.viewMode && ([
@@ -94,47 +94,47 @@ var processor = unified()
                 ])}
               { this.state.flip && this.state.show && this.state.viewMode && ([
                 <div className="card-back">
-                {processor.processSync(front).result}</div>,
+                {processor.processSync(side1).result}</div>,
                 ])}
               { !this.state.flip && this.state.show && this.state.viewMode && ([ // if flip is off
                 <div className="card-back">
-                {processor.processSync(back).result}</div>,
+                {processor.processSync(side2).result}</div>,
                 ])}
               
               { // Study Flip mode 
                 this.state.flip && !this.state.show && this.state.studyFlip && ([ // if flip is on 
                 //<div className="card-section-title" >Back: </div>,
                 <div className="card-back study-mode">
-                {processor.processSync(back).result}</div>,
+                {processor.processSync(side2).result}</div>,
                 //<div className="card-section-title" >Front:</div>,
                 ])}
               { !this.state.flip && !this.state.show && this.state.studyFlip && ([ // if flip is off
                 //<div className="card-section-title">Front:</div>,
                 <div className="card-back study-mode">
-                  {processor.processSync(front).result}</div>,
+                  {processor.processSync(side1).result}</div>,
                 ])}
 
               { this.state.flip && this.state.show && this.state.studyFlip && ([ // if flip is on
                 <div className="card-back study-mode">
-                {processor.processSync(front).result}</div>,
+                {processor.processSync(side1).result}</div>,
                 ])}
               { !this.state.flip && this.state.show && this.state.studyFlip && ([ // if flip is off
                 //<div className="card-section-title" >Back: </div>,
                 <div className="card-back study-mode">
-                  {processor.processSync(back).result}</div>,
+                  {processor.processSync(side2).result}</div>,
                 ])}
 
               { // Study Show mode
                 this.state.flip && this.state.studyShow && ([ // if flip is on 
                 //<div className="card-section-title" >Back: </div>,
                 <div className="card-back study-mode">
-                  {processor.processSync(back).result}</div>,
+                  {processor.processSync(side2).result}</div>,
                 //<div className="card-section-title" >Front:</div>,
                 ])}
               { !this.state.flip && this.state.studyShow && ([ // if flip is off
                 //<div className="card-section-title">Front:</div>,
                 <div className="card-back study-mode">
-                {processor.processSync(front).result}</div>,
+                {processor.processSync(side1).result}</div>,
                 //<div className="card-section-title" >Back: </div>,
                 ])}  
               { this.state.studyShow && ([
@@ -142,17 +142,26 @@ var processor = unified()
                 ])}  
               { this.state.flip && this.state.show && this.state.studyShow && ([ // if flip is on
                 <div className="card-back study-mode">
-                {processor.processSync(front).result}</div>,
+                {processor.processSync(side1).result}</div>,
                 ])}
               { !this.state.flip && this.state.show && this.state.studyShow && ([ // if flip is off
               <div className="card-back study-mode">
-              {processor.processSync(back).result}</div>,
+              {processor.processSync(side2).result}</div>,
               ])}
 
               {!this.state.show && ([
                 <div className="card-bar">
                   <hr></hr>
                 </div>
+              ])}
+
+              {this.state.show && side3 && ([
+                  <div className="card-bar">
+                    <hr></hr>
+                  </div>,
+                  <div className="card-back" >
+                    {processor.processSync(side3).result}
+                  </div>,
               ])}
               
               {this.state.show && notes && ([

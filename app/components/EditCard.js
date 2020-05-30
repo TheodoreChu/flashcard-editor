@@ -71,45 +71,60 @@ export default class EditCard extends React.Component {
     const { id, entry } = this.state;
 
     return (
-      <div className="card-edit sk-panel">
+      <div className="card-edit sk-panel main">
         <div className="sk-panel-content">
           <div className="sk-panel-section">
             <div className="sk-panel-section-title sk-panel-row">
               {id != null ? 'Edit card' : 'Add new card'}
             </div>
             <form onSubmit={this.onSave}>
-              Front:
+              Side 1:
               <textarea
-                name="front"
+                name="side1"
                 className="sk-input contrast textarea"
                 placeholder="Front"
-                value={entry.front}
+                value={entry.side1}
                 onChange={this.handleInputChange}
                 onKeyDown={this.onKeyDown}
                 onKeyUp={this.onKeyUp}
                 type="text"
+                rows="3"
               />
-              Back:
+              Side 2:
               <textarea
-                name="back"
+                name="side2"
                 className="sk-input contrast textarea"
                 placeholder="Back"
-                value={entry.back}
+                value={entry.side2}
                 onChange={this.handleInputChange}
                 onKeyDown={this.onKeyDown}
                 onKeyUp={this.onKeyUp}
                 type="text"
+                rows="3"
+              />
+              Side 3:
+              <textarea
+                name="side3"
+                className="sk-input contrast textarea"
+                placeholder="Side 3"
+                value={entry.side3}
+                onChange={this.handleInputChange}
+                onKeyDown={this.onKeyDown}
+                onKeyUp={this.onKeyUp}
+                type="text"
+                rows="3"
               />
               Notes
               <textarea
                 name="notes"
                 className="sk-input contrast textarea"
-                placeholder="Notes"
+                placeholder="Additional Notes"
                 value={entry.notes}
                 onChange={this.handleInputChange}
                 onKeyDown={this.onKeyDown}
                 onKeyUp={this.onKeyUp}
                 type="text"
+                rows="3"
               />
               <div className="sk-panel-row">
                 <div className="sk-button-group stretch">
