@@ -34,6 +34,19 @@ export default class EditCard extends React.Component {
     e.preventDefault();
     const { id, entry } = this.state;
     this.props.onSave({ id, entry });
+    this.setState({
+      id: null,
+      entry: {},
+    }, () => {
+      // Clear the text areas
+      var x = document.getElementsByTagName("textarea");
+      var i;
+      for (i = 0; i < x.length; i++) {
+          x[i].value = "";
+      }
+      const textAreaSide1 = document.getElementById("textAreaSide1");
+      textAreaSide1.focus();
+    });
   };
 
   // this is the default behavior for 'input' boxes but not 'textarea'
@@ -72,7 +85,7 @@ export default class EditCard extends React.Component {
 
     return (
       <div className="card-edit sk-panel main">
-        <div className="sk-panel-content">
+        <div className="sk-panel-content edit">
           <div className="sk-panel-section">
             <div className="sk-panel-section-title sk-panel-row">
               {id != null ? 'Edit card' : 'Add new card'}
@@ -80,6 +93,7 @@ export default class EditCard extends React.Component {
             <form onSubmit={this.onSave}>
               Side 1:
               <textarea
+                id="textAreaSide1"
                 name="side1"
                 className="sk-input contrast textarea"
                 placeholder="Front"
@@ -92,6 +106,7 @@ export default class EditCard extends React.Component {
               />
               Side 2:
               <textarea
+                id="textAreaSide2"
                 name="side2"
                 className="sk-input contrast textarea"
                 placeholder="Back"
@@ -104,6 +119,7 @@ export default class EditCard extends React.Component {
               />
               Side 3:
               <textarea
+                id="textAreaSide3"
                 name="side3"
                 className="sk-input contrast textarea"
                 placeholder="Side 3"
@@ -116,6 +132,7 @@ export default class EditCard extends React.Component {
               />
               Notes
               <textarea
+                id="textAreaSide4"
                 name="notes"
                 className="sk-input contrast textarea"
                 placeholder="Additional Notes"

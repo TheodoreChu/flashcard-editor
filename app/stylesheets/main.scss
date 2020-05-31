@@ -77,12 +77,37 @@ button:focus {
     }
   }
   
-  .sk-panel-content {
+  /*.sk-panel-content {
     height: inherit !important;
     padding: 1.6rem 2rem;
     margin: inherit auto;
     //width: 700px;
+  }*/
+
+  .sk-panel-content.view {
+    //height: inherit !important;
+    //padding: 1.6rem 2rem !important;
+    padding: 0.5rem 1.25rem !important;
+    padding-bottom: 0px !important;
+    //width: 700px;
+    @media screen and (max-width: 725px) {
+      padding: .5rem .625rem !important;
+    }
   }
+
+  .sk-panel-content.edit {
+    padding: 1rem 1.25rem !important;
+    padding-bottom: 0px !important;
+    @media screen and (max-width: 725px) {
+      //padding: .16rem .2rem !important;
+      //padding-left: 0px !important;
+      //padding-right: 0px !important;
+      //padding-top: 0px !important;
+      padding: .5rem .625rem !important;
+      padding-bottom: 2rem !important; // so the bottom doesn't collide with scroll top/bottom
+    }
+  }
+
   .sk-input.contrast.textarea {
     min-height: 45px; //60px for double lines
     padding: 9px 10px;//0.7rem 0.8rem;
@@ -387,6 +412,7 @@ button:focus {
 .card-entry {
   display: flex;
   align-items: center;
+  justify-content: flex-end;
 
   // Collapse on mobile
   @media screen and (max-width: 480px) {
@@ -403,6 +429,7 @@ button:focus {
     align-items: center;
     justify-content: space-between;
     min-width: 0;
+    padding-top: 20px;
 
     .card-info {
       min-width: inherit;
@@ -425,7 +452,7 @@ button:focus {
         line-height: 1.9rem;
       }
 
-      .card-back {
+      .card-side {
         font-size: var(--sn-stylekit-font-size-editor);
         text-align: auto;
         margin-left: auto;
@@ -435,7 +462,7 @@ button:focus {
         line-height: 1.9rem;
       }
 
-      .card-back.study-mode {
+      .card-side.study-mode {
         text-align: center;
       }
 
@@ -458,6 +485,7 @@ button:focus {
     overflow: visible;
     margin-bottom: 8px;
     align-self: flex-start;
+    position: absolute;
 
     .card-menu > .sk-button {
       display: flex;
