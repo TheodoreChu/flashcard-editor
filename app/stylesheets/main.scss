@@ -226,7 +226,7 @@ button:focus {
   }
 
   a {
-    color: #086dd6;
+    color: var(--sn-stylekit-info-color); // #086dd6;
     text-decoration: none;
   }
 
