@@ -508,6 +508,7 @@ export default class Flashcards extends React.Component {
             <button onClick={this.onStudyShow} className={"sk-button info " + (this.state.studyShow ? 'on' : 'off' )}>
                 <div className="sk-label"> Study </div>
             </button>
+            {this.state.entries.length > 0 && (
             <button onClick={this.onShow} className={"sk-button info " + (this.state.show ? 'on' : 'off' )}>
               {!this.state.show && ( // if show mode is false
                 <div className="sk-label" >Show All</div>
@@ -516,6 +517,7 @@ export default class Flashcards extends React.Component {
                 <div className="sk-label" >Hide All</div>
               )}
             </button>
+            )}
             <button onClick={this.onListMode} className={"sk-button info " + (this.state.viewMode ? 'on' : 'off' )}>
               <div className="sk-label">List</div>
             </button>
