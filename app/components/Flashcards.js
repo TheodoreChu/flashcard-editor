@@ -8,7 +8,7 @@ import EditCard from './EditCard';
 
 import ViewMode from './ViewMode';
 import StudyMode from './StudyMode';
-import HeaderMenu from './HeaderMenu';
+import Table from './Table';
 
 const initialState = {
   text: '',
@@ -27,7 +27,10 @@ const initialState = {
   spacedCardList: [], //list of IDs for random study mode
   spacedCardID: 0, // the ID of the study card (which is not necessarily its corresponding index in the study card list)
   viewMode: true,
+  tableMode: false,
 };
+
+let keyMap = new Map();
 
 export default class Flashcards extends React.Component {
   constructor(props) {
@@ -182,6 +185,7 @@ export default class Flashcards extends React.Component {
   onFlip = () => {
     this.setState({
       flip: !this.state.flip,
+      tableMode: false,
       studyFlip: false,
       studyShow: false,
       viewMode: true,
@@ -193,6 +197,7 @@ export default class Flashcards extends React.Component {
   onShow = () => {
     this.setState({
       show: !this.state.show,
+      tableMode: false,
       studyFlip: false,
       studyShow: false,
       viewMode: true,
@@ -204,6 +209,7 @@ export default class Flashcards extends React.Component {
   onHide = () => {
     this.setState({
       show: false,
+      tableMode: false,
       studyFlip: false,
       studyShow: false,
       viewMode: true,
@@ -212,10 +218,17 @@ export default class Flashcards extends React.Component {
     });
   };
 
-  onKeyUp = e => {
-    keyMap.set(e.key, false);
-    console.log("keyup control: " + keyMap.get('Control') + "enter: " + keyMap.get('Enter'));
-  }
+  onTableMode = () => {
+    this.setState({
+      tableMode: !this.state.tableMode,
+      show: false,
+      studyFlip: false,
+      studyShow: false,
+      viewMode: false,
+      editCardMode: false,
+      editEntry: null
+    });
+  };
 
   onStudyFlip = () => {
     if (this.state.randomCardList.length === 0 && this.state.entries.length > 0) {
@@ -235,6 +248,7 @@ export default class Flashcards extends React.Component {
       // if studyFlip is turned off, then turn it on and turn off viewMode
       else if (!this.state.studyFlip) {
         this.setState({
+          tableMode: false,
           studyFlip: true,
           studyShow: false,
           viewMode: false,
@@ -264,6 +278,7 @@ export default class Flashcards extends React.Component {
       else if (!this.state.studyShow) {
         this.setState({
           studyFlip: false,
+          tableMode: false,
           studyShow: true,
           viewMode: false,
           editCardMode: false,
@@ -403,13 +418,78 @@ export default class Flashcards extends React.Component {
   </div>
   */
 
+  // Need both content and appendix for mobile
+  scrollToBottom = () => {
+    var content = document.getElementById("content");
+    var appendix = document.getElementById("appendix");
+    document.body.scrollTop = 10000000; // for Safari
+    content.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"}); // Bottom
+    appendix.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"}); // Bottom
+  }
+
+  // Need both content and appendix for mobile
+  // Skip to Bottom is fast "auto" behavior instead of "smooth" behavior
+  skipToBottom = () => {
+    var content = document.getElementById("content");
+    var appendix = document.getElementById("appendix");
+    document.body.scrollTop = 10000000; // for Safari
+    content.scrollIntoView({behavior: "auto", block: "end", inline: "nearest"}); // Bottom
+    appendix.scrollIntoView({behavior: "auto", block: "end", inline: "nearest"}); // Bottom
+  }
+
+  // Need both content and appendix for mobile
+  scrollToTop = () => {
+    var content = document.getElementById("content")
+    var header = document.getElementById("header");
+    document.body.scrollTop = 0; // for Safari
+    content.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"}); // Top
+    header.scrollIntoView({behavior: "smooth", block: "start", inline: "nearest"}); // Top
+  }
+
+  // Need both content and appendix for mobile
+  // Skip to Bottom is fast "auto" behavior instead of "smooth" behavior
+  skipToTop = () => {
+    var content = document.getElementById("content")
+    var header = document.getElementById("header");
+    document.body.scrollTop = 0; // for Safari
+    content.scrollIntoView({behavior: "auto", block: "start", inline: "nearest"}); // Top
+    header.scrollIntoView({behavior: "auto", block: "start", inline: "nearest"}); // Top
+  }
+
+  onKeyDown = (e) => {
+    keyMap.set(e.key, true);
+    if (keyMap.get('Control') && keyMap.get('{')) {
+      e.preventDefault();
+      this.scrollToTop();
+    }
+    else if (keyMap.get('Control') && keyMap.get('}')) {
+      e.preventDefault();
+      this.scrollToBottom();
+    }
+    else if (keyMap.get('Control') && keyMap.get('[')) {
+      e.preventDefault();
+      this.skipToTop();
+    }
+    else if (keyMap.get('Control') && keyMap.get(']')) {
+      e.preventDefault();
+      this.skipToBottom();
+    }
+    console.log("")
+    // TODO: If you close it with Ctrl + W and open it again, the Ctrl event key isn't set to false
+    // So, if you have minimize to tray on, then it'll open with Ctrl still down
+  }
+
+  onKeyUp = (e) => {
+    keyMap.set(e.key, false);
+  }
+
   render() {
     const editEntry = this.state.editEntry || {};
 
     //this.getRandomCardList();
     //let cardsList = this.state.entries.filter(entry => this.state.entries.indexOf(entry) > 0);
     return (
-      <div tabIndex="0" className="sn-component">
+      <div tabIndex="0" className="sn-component" onKeyDown={this.onKeyDown} onKeyUp={this.onKeyUp}>
         {this.state.parseError && <DataErrorAlert />}
         <div id="header">
         <div className="sk-button-group">
@@ -452,10 +532,17 @@ export default class Flashcards extends React.Component {
             <button onClick={this.onShuffleCards} className="sk-button info off" >
               <div className="sk-label">Shuffle</div>
             </button>
+            <button onClick={this.onTableMode} className={"sk-button info " + (this.state.tableMode ? 'on' : 'off' )}>
+              <div className="sk-label">Table</div>
+            </button>
           </div>
         </div>
 
         <div id="content">
+         {this.state.tableMode && ([
+           <Table
+           entries={this.state.entries}/>
+         ])}
         {this.state.studyFlip && !this.state.editCardMode && ( // if show mode is on and flip mode is off
             <StudyMode
               id={this.state.randomCardID}
@@ -556,6 +643,14 @@ export default class Flashcards extends React.Component {
               onCancel={this.onStopStudy}
             />
           )}
+        </div>
+        <div id="appendix" className={ "appendix "  + (this.state.printMode ? 'printModeOn' : 'printModeOff' )}>
+          <button type="button" id="scrollToTopButton" onClick={this.scrollToTop} className="sk-button info">
+            <div className="sk-label"> ▲ </div>
+          </button>
+          <button type="button" id="scrollToBottomButton" onClick={this.scrollToBottom} className="sk-button info">
+            <div className="sk-label"> ▼ </div>
+          </button>
         </div>
       </div>
     );

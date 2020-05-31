@@ -4,6 +4,6 @@
     "content_type": "SN|Component",
     "area": "editor-editor",
     "version": "1.0.0",
-    "description": "An editor to help you study in private",
+    "description": "Study flashcards in private",
     "url": "http://localhost:8002/dist/index.html"
 }
