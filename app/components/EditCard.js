@@ -8,7 +8,7 @@ export default class EditCard extends React.Component {
       forward: true,
       reverse: true,
       timeLeft: 0,
-    }
+    },
   };
 
   constructor(props) {
@@ -16,37 +16,40 @@ export default class EditCard extends React.Component {
 
     this.state = {
       id: this.props.id,
-      entry: this.props.entry
+      entry: this.props.entry,
     };
   }
 
-  handleInputChange = event => {
+  handleInputChange = (event) => {
     const target = event.target;
     const name = target.name;
-    const value = target.value
+    const value = target.value;
 
-    this.setState(state => ({
-      entry: { ...state.entry, [name]: value }
+    this.setState((state) => ({
+      entry: { ...state.entry, [name]: value },
     }));
   };
 
-  onSave = e => {
+  onSave = (e) => {
     e.preventDefault();
     const { id, entry } = this.state;
     this.props.onSave({ id, entry });
-    this.setState({
-      id: null,
-      entry: {},
-    }, () => {
-      // Clear the text areas
-      var x = document.getElementsByTagName("textarea");
-      var i;
-      for (i = 0; i < x.length; i++) {
-          x[i].value = "";
+    this.setState(
+      {
+        id: null,
+        entry: {},
+      },
+      () => {
+        // Clear the text areas
+        var x = document.getElementsByTagName('textarea');
+        var i;
+        for (i = 0; i < x.length; i++) {
+          x[i].value = '';
+        }
+        const textAreaSide1 = document.getElementById('textAreaSide1');
+        textAreaSide1.focus();
       }
-      const textAreaSide1 = document.getElementById("textAreaSide1");
-      textAreaSide1.focus();
-    });
+    );
   };
 
   // this is the default behavior for 'input' boxes but not 'textarea'
@@ -54,7 +57,12 @@ export default class EditCard extends React.Component {
   onKeyDown = (e) => {
     keyMap.set(e.key, true);
     //const submit = document.querySelector('#submit');
-    console.log("keydown control: " + keyMap.get('Control') + "enter: " + keyMap.get('Enter'));
+    console.log(
+      'keydown control: ' +
+        keyMap.get('Control') +
+        'enter: ' +
+        keyMap.get('Enter')
+    );
     if (keyMap.get('Control') && keyMap.get('Enter')) {
       e.preventDefault();
       keyMap.set('Control', false);
@@ -62,23 +70,21 @@ export default class EditCard extends React.Component {
       this.onSave(e);
       //submit.click();
       //alert('You pressed Control and Enter');
-    }
-    else if (keyMap.get('Control') && keyMap.get('s')) {
+    } else if (keyMap.get('Control') && keyMap.get('s')) {
       e.preventDefault();
       keyMap.set('Control', false);
       keyMap.set('s', false);
       this.onSave(e);
-    }
-    else if (keyMap.get('Escape')) {
+    } else if (keyMap.get('Escape')) {
       e.preventDefault();
       keyMap.set('Escape', false);
       this.props.onCancel();
     }
-  }
+  };
 
   onKeyUp = (e) => {
     keyMap.set(e.key, false);
-  }
+  };
 
   render() {
     const { id, entry } = this.state;

@@ -64,7 +64,7 @@ button:focus {
 
   .sk-panel.main {
     flex-grow: unset;
-    max-width:700px;
+    max-width: 700px;
     width: 100%;
     margin: 10px 0px 0px 0px;
 
@@ -76,7 +76,7 @@ button:focus {
       margin: 0;
     }
   }
-  
+
   /*.sk-panel-content {
     height: inherit !important;
     padding: 1.6rem 2rem;
@@ -91,7 +91,7 @@ button:focus {
     padding-bottom: 0px !important;
     //width: 700px;
     @media screen and (max-width: 725px) {
-      padding: .5rem .625rem !important;
+      padding: 0.5rem 0.625rem !important;
     }
   }
 
@@ -103,14 +103,14 @@ button:focus {
       //padding-left: 0px !important;
       //padding-right: 0px !important;
       //padding-top: 0px !important;
-      padding: .5rem .625rem !important;
+      padding: 0.5rem 0.625rem !important;
       padding-bottom: 2rem !important; // so the bottom doesn't collide with scroll top/bottom
     }
   }
 
   .sk-input.contrast.textarea {
     min-height: 45px; //60px for double lines
-    padding: 9px 10px;//0.7rem 0.8rem;
+    padding: 9px 10px; //0.7rem 0.8rem;
     max-width: inherit;
     width: calc(100% - 22px);
     //outline: 0; // doesn't do anything
@@ -144,7 +144,7 @@ button:focus {
   margin-left: auto;
   margin-right: auto;
   width: 100%;
-  
+
   .sk-button-group {
     max-width: 700px;
     overflow-x: auto;
@@ -160,7 +160,7 @@ button:focus {
         font-size: 16px;
       }
 
-      .sk-label { 
+      .sk-label {
         font-weight: inherit;
       }
     }
@@ -201,17 +201,20 @@ button:focus {
   .hljs {
     color: unset;
   }
-  
-  code, pre {
-    font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace,
+
+  code,
+  pre {
+    font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, monospace;
   }
   code {
     box-sizing: border-box;
     word-wrap: break-word;
-    padding: .2em .4em;
+    padding: 0.2em 0.4em;
     margin: 0;
     font-size: 85%;
-    background-color: var(--sn-stylekit-contrast-background-color); // rgba(27,31,35,.05);
+    background-color: var(
+      --sn-stylekit-contrast-background-color
+    ); // rgba(27,31,35,.05);
     border-radius: 3px;
   }
 
@@ -220,13 +223,15 @@ button:focus {
     overflow: auto;
     font-size: 85%;
     line-height: 1.45;
-    background-color: var(--sn-stylekit-contrast-background-color); // rgba(27,31,35,.05);// #f6f8fa; the latter doesn't work well on dark mode
+    background-color: var(
+      --sn-stylekit-contrast-background-color
+    ); // rgba(27,31,35,.05);// #f6f8fa; the latter doesn't work well on dark mode
     border-radius: 3px;
     word-wrap: normal;
     margin-top: 0;
     margin-bottom: 16px;
   }
-  
+
   pre > code {
     padding: 0;
     margin: 0;
@@ -265,7 +270,7 @@ button:focus {
     margin-bottom: 16px;
     padding: 0 1em;
     color: #6a737d;
-    border-left: .25em solid #dfe2e5;
+    border-left: 0.25em solid #dfe2e5;
   }
 
   hr {
@@ -288,7 +293,6 @@ button:focus {
   }
 
   table {
-
     display: block;
     width: 100%;
     overflow: auto;
@@ -296,32 +300,36 @@ button:focus {
     margin-bottom: 16px;
     border-spacing: 0;
     border-collapse: collapse;
-    
+
     tr {
       background-color: transparent; // #fff;
       border-top: 1px solid #c6cbd1;
     }
 
-    td, th {
+    td,
+    th {
       padding: 6px 13px;
       border: 1px solid #dfe2e5;
     }
 
     tr:nth-child(2n) {
-      background-color: var(--sn-stylekit-contrast-background-color); // #f6f8fa;
-      code, pre {
+      background-color: var(
+        --sn-stylekit-contrast-background-color
+      ); // #f6f8fa;
+      code,
+      pre {
         background-color: var(--sn-stylekit-background-color);
       }
     }
   }
-  
+
   button {
     border-width: 0px;
     font-size: 14px;
     @media screen and (max-width: 650px) {
       font-size: 17px;
     }
-    .sk-label { 
+    .sk-label {
       font-weight: normal !important;
       font-size: 14px;
     }
@@ -333,7 +341,7 @@ button:focus {
   //overflow: visible !important; // We need this for the dropdown menu
   margin: 10px 0 0 0 !important;
   //padding: 28px 14px 28px 28px !important;
-  padding: 21px 14px 21px 28px !important; //top left bottom right 
+  padding: 21px 14px 21px 28px !important; //top left bottom right
 }
 
 .card-dialog {
@@ -369,10 +377,10 @@ button:focus {
     input {
       min-width: 250px;
       font-size: 16px;
-      padding: 0.5rem
+      padding: 0.5rem;
     }
-  // Collapse on mobile
-  @media screen and (max-width: 480px) {
+    // Collapse on mobile
+    @media screen and (max-width: 480px) {
       flex-direction: column !important;
       align-items: flex-start !important;
 
@@ -401,11 +409,11 @@ button:focus {
 }
 
 .card-edit {
-  margin: 10px;// 10px 0;
+  margin: 10px; // 10px 0;
 }
 
 .card-study {
-  margin: 10px;// 10px 0;
+  margin: 10px; // 10px 0;
 }
 
 /* entry default styles */
@@ -438,7 +446,7 @@ button:focus {
       .card-bar hr {
         border: 0.5px solid var(--sn-stylekit-border-color);
         max-width: 300px;
-        width:100%
+        width: 100%;
       }
 
       .card-section-title {
@@ -472,7 +480,7 @@ button:focus {
         width: 50%;
         margin-left: auto;
         margin-right: auto;
-        padding-top:15px;
+        padding-top: 15px;
         @media screen and (max-width: 500px) {
           width: 90%;
         }
@@ -491,7 +499,7 @@ button:focus {
       display: flex;
       flex-direction: column;
       .sk-label {
-        text-align:right;
+        text-align: right;
       }
     }
 
@@ -501,19 +509,19 @@ button:focus {
       z-index: 200;*/
 
       .sk-menu-panel-row {
-        padding: .5rem 1rem;
+        padding: 0.5rem 1rem;
       }
     }
   }
 }
 
-.appendix.printModeOn{
+.appendix.printModeOn {
   background-color: var(--sn-stylekit-background-color) !important;
 }
 
 #appendix {
   background-color: var(--sn-stylekit-contrast-background-color);
-  display:block;
+  display: block;
 
   .sk-button-group {
     display: flex;
@@ -568,14 +576,14 @@ button:focus {
       }
     }
   }
-  
+
   button {
     border-width: 0px;
     font-size: 14px;
     @media screen and (max-width: 650px) {
       font-size: 17px;
     }
-    .sk-label { 
+    .sk-label {
       font-weight: inherit;
     }
   }

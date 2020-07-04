@@ -3,11 +3,10 @@ import React from 'react';
 export default class Settings extends React.Component {
   static defaultProps = {
     entry: {
-    // "card-type": "settings" or "card"
-    // "intervals": "60, 600, 3600, 86444" (1 minute, 10 minutes, 1 hour, 1 day, )
-    // Allow for custom fields
-    
-    }
+      // "card-type": "settings" or "card"
+      // "intervals": "60, 600, 3600, 86444" (1 minute, 10 minutes, 1 hour, 1 day, )
+      // Allow for custom fields
+    },
   };
 
   constructor(props) {
@@ -15,21 +14,21 @@ export default class Settings extends React.Component {
 
     this.state = {
       id: this.props.id,
-      entry: this.props.entry
+      entry: this.props.entry,
     };
   }
 
-  handleInputChange = event => {
+  handleInputChange = (event) => {
     const target = event.target;
     const name = target.name;
-    const value = target.value
+    const value = target.value;
 
-    this.setState(state => ({
-      entry: { ...state.entry, [name]: value }
+    this.setState((state) => ({
+      entry: { ...state.entry, [name]: value },
     }));
   };
 
-  onSave = e => {
+  onSave = (e) => {
     e.preventDefault();
     const { id, entry } = this.state;
     this.props.onSave({ id, entry });

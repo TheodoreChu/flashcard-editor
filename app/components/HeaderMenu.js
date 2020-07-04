@@ -5,13 +5,13 @@ export default class HeaderMenu extends React.Component {
     super(props);
 
     this.state = {
-      show: false
+      show: false,
     };
   }
 
   onToggle = () => {
     this.setState({
-      show: !this.state.show
+      show: !this.state.show,
     });
   };
 
@@ -45,7 +45,7 @@ export default class HeaderMenu extends React.Component {
             <div className="sk-menu-panel-row">
               <div className="sk-label">Remove</div>
             </div>
-          </div>
+          </div>,
         ]}
       </div>
     );

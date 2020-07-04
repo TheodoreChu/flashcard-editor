@@ -5,13 +5,13 @@ export default class CardMenu extends React.Component {
     super(props);
 
     this.state = {
-      show: false
+      show: false,
     };
   }
 
   onToggle = () => {
     this.setState({
-      show: !this.state.show
+      show: !this.state.show,
     });
   };
 
@@ -26,7 +26,7 @@ export default class CardMenu extends React.Component {
   };
 
   render() {
-    const {onFlip} = this.props
+    const { onFlip } = this.props;
 
     return (
       <div className="card-menu">
@@ -48,7 +48,7 @@ export default class CardMenu extends React.Component {
             <div className="sk-menu-panel-row" onClick={this.onRemove}>
               <div className="sk-label">Remove</div>
             </div>
-          </div>
+          </div>,
         ]}
       </div>
     );

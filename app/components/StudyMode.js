@@ -1,13 +1,24 @@
 import React from 'react';
-import ViewCards from './ViewCards'
+import ViewCards from './ViewCards';
 
 export default class StudyMode extends React.Component {
   constructor(props) {
     super(props);
   }
 
-  render () {
-    const { entries, onEdit, onRemove, show, flip, studyShow, studyFlip, id, onNextCard, viewMode} = this.props
+  render() {
+    const {
+      entries,
+      onEdit,
+      onRemove,
+      show,
+      flip,
+      studyShow,
+      studyFlip,
+      id,
+      onNextCard,
+      viewMode,
+    } = this.props;
 
     return (
       <div className="card-list">
