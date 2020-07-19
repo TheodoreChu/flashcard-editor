@@ -73,7 +73,7 @@ module.exports = {
         // You don't need to do this every time, only after you update dependencies
         {
           from: path.resolve(__dirname, './node_modules/katex/dist'),
-          to: 'katex',
+          to: 'katex/latest',
         },
       ],
     }),
