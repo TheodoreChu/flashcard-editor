@@ -4,7 +4,7 @@ import unified from 'unified';
 import parse from 'remark-parse';
 import remark2rehype from 'remark-rehype';
 import rehype2react from 'rehype-react';
-
+const breaks = require('remark-breaks');
 const math = require('remark-math');
 const rehypeKatex = require('rehype-katex');
 const highlight = require('rehype-highlight');
@@ -13,14 +13,17 @@ const externalLinks = require('remark-external-links');
 const toc = require('remark-toc');
 const footnotes = require('remark-footnotes');
 const slug = require('remark-slug');
+const raw = require('rehype-raw');
 
-var processor = unified()
+const processor = unified()
   .use(parse)
+  .use(breaks)
   .use(slug)
   .use(toc, { maxDepth: 6 })
   .use(externalLinks)
   .use(footnotes, { inlineNotes: true })
-  .use(remark2rehype)
+  .use(remark2rehype, { allowDangerousHtml: true })
+  .use(raw)
   .use(math)
   .use(rehypeKatex)
   .use(highlight, { ignoreMissing: true })
