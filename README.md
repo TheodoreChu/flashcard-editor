@@ -3,7 +3,6 @@
 <div align="center">
 
 [![License](https://img.shields.io/github/license/theodorechu/flashcard-editor?color=blue)](https://github.com/theodorechu/flashcard-editor/blob/master/LICENSE)
-[![Maintenance](https://img.shields.io/badge/Maintained%3F-yes-green.svg)](https://github.com/theodorechu/flashcard-editor/graphs/commit-activity)
 [![Not ready for use](https://img.shields.io/badge/Ready%20for%20use%3F-no-red)](https://github.com/theodorechu/flashcard-editor#development)
 [![GitHub issues](https://img.shields.io/github/issues/theodorechu/flashcard-editor.svg)](https://github.com/theodorechu/flashcard-editor/issues/)
 [![Slack](https://img.shields.io/badge/slack-standardnotes-CC2B5E.svg?style=flat&logo=slack)](https://standardnotes.org/slack)
