@@ -1,9 +1,0 @@
-{
-    "identifier": "com.theochu.flashcard-editor",
-    "name": "Flashcard Editor - Local",
-    "content_type": "SN|Component",
-    "area": "editor-editor",
-    "version": "1.0.0",
-    "description": "Study flashcards in private",
-    "url": "http://localhost:8002/dist/index.html"
-}

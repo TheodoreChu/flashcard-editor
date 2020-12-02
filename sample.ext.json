@@ -1,0 +1,9 @@
+{
+  "identifier": "com.flashcard-editor.dev",
+  "name": "Flashcard Editor - Local",
+  "content_type": "SN|Component",
+  "area": "editor-editor",
+  "version": "0.0.0",
+  "description": "Study flashcards in private",
+  "url": "http://localhost:8002"
+}

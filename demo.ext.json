@@ -1,0 +1,13 @@
+{
+  "identifier": "com.flashcard-editor.demo",
+  "name": "Flashcard Editor - Beta",
+  "content_type": "SN|Component",
+  "area": "editor-editor",
+  "version": "0.0.1",
+  "description": "Study flashcards in private",
+  "url": "https://demo.flashcardeditor.com",
+  "download_url": "https://github.com/TheodoreChu/flashcard-editor/releases/download/v0.0.1/flashcard-editor-build-v0.0.1.zip",
+  "latest_url": "https://raw.githubusercontent.com/TheodoreChu/flashcard-editor/develop/demo.ext.json",
+  "marketing_url": "https://flashcardeditor.com",
+  "thumbnail_url": ""
+}

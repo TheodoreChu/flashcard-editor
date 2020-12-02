@@ -1,6 +1,6 @@
 {
   "name": "flashcard-editor",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Study flashcards in private.",
   "keywords": [
     "Standard Notes",
@@ -15,9 +15,9 @@
     "start": "webpack-dev-server --devtool eval --progress --hot --content-base app",
     "watch": "webpack --watch",
     "server": "http-server -p 8002 --cors",
-    "pretty": "prettier --write 'app/**/*.{html,scss,js,json}'"
+    "pretty": "prettier --write 'app/**/*.{html,css,scss,js,jsx,json}'"
   },
-  "author": "Theodore Chu <github@theochu.com>",
+  "author": "Theodore Chu",
   "license": "AGPL-3.0-or-later",
   "repository": {
     "type": "git",

@@ -13,7 +13,7 @@
 
 The Flashcard Editor is an **unofficial** [Custom Editor](https://standardnotes.org/help/77/what-are-editors) for [Standard Notes](https://standardnotes.org), a free, open-source, and [end-to-end encrypted](https://standardnotes.org/knowledge/2/what-is-end-to-end-encryption) notes app.It is currently in development and not ready for use. :smile:
 
-You can find the beta demo at [beta.flashcardeditor.com](https://beta.flashcardeditor.com).
+You can find the beta demo at [demo.flashcardeditor.com](https://demo.flashcardeditor.com).
 
 The editor supports Markdown, $\LaTeX/ \KaTeX$, emoji codes, syntax highlighting, inline HTML, table of contents, footnotes, auto-linking, and more.
 
@@ -34,6 +34,10 @@ The editor supports Markdown, $\LaTeX/ \KaTeX$, emoji codes, syntax highlighting
 1. Click **Import Extension**.
 1. Paste this into the box:
    ```
+   https://raw.githubusercontent.com/TheodoreChu/flashcard-editor/develop/demo.ext.json
+   ```
+   Alternatively, paste this link:
+   ```
    https://notes.theochu.com/p/FV2A4HJFRN
    ```
 1. Press Enter or Return on your keyboard.
@@ -50,7 +54,7 @@ The instructions for local setup can be found [here](https://docs.standardnotes.
 2. [Clone](https://help.github.com/en/github/creating-cloning-and-archiving-repositories/cloning-a-repository) your fork of the repository
 3. Type `cd flashcard-editor`
 4. Run `npm install` to locally install the packages in `package.json`
-5. Create `ext.json` as shown [here](https://docs.standardnotes.org/extensions/local-setup) with `url: "http://localhost:8002/dist/index.html"`. Optionally, create your `ext.json` as a copy of `ext.json.sample`.
+5. Create `ext.json` as shown [here](https://docs.standardnotes.org/extensions/local-setup) with `url: "http://localhost:8002"`. Optionally, create your `ext.json` as a copy of `sample.ext.json`.
 6. Install http-server using `sudo npm install -g http-server`
 7. Start the server at `http://localhost:8002` using `npm run server`
 8. Import the extension into the [web](https://app.standardnotes.org) or [desktop](https://standardnotes.org/download) app with `http://localhost:8002/ext.json`.
