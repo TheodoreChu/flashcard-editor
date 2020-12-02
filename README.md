@@ -16,7 +16,7 @@
 
 ## Introduction
 
-The Flashcard Editor is an **unofficial** [Custom Editor](https://standardnotes.org/help/77/what-are-editors) for [Standard Notes](https://standardnotes.org), a free, open-source, and [end-to-end encrypted](https://standardnotes.org/knowledge/2/what-is-end-to-end-encryption) notes app.It is currently in development and not ready for use. :smile:
+The Flashcard Editor is an **unofficial** [editor](https://standardnotes.org/help/77/what-are-editors) for [Standard Notes](https://standardnotes.org), a free, [open-source](https://standardnotes.org/knowledge/5/what-is-free-and-open-source-software), and [end-to-end encrypted](https://standardnotes.org/knowledge/2/what-is-end-to-end-encryption) notes app. It is currently in development and not ready for use. :smile:
 
 You can find the beta demo at [demo.flashcardeditor.com](https://demo.flashcardeditor.com).
 
