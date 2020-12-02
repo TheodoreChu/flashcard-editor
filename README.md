@@ -2,10 +2,15 @@
 
 <div align="center">
 
-[![License](https://img.shields.io/github/license/theodorechu/flashcard-editor?color=blue)](https://github.com/theodorechu/flashcard-editor/blob/master/LICENSE)
-[![Not ready for use](https://img.shields.io/badge/Ready%20for%20use%3F-no-red)](https://github.com/theodorechu/flashcard-editor#development)
+[![Release](https://img.shields.io/github/release/theodorechu/flashcard-editor.svg)](https://github.com/theodorechu/flashcard-editor/releases)
+[![License](https://img.shields.io/github/license/theodorechu/flashcard-editor?color=blue)](https://github.com/theodorechu/flashcard-editor/blob/develop/LICENSE)
+[![Not ready for use](https://img.shields.io/badge/ready%20for%20use%3F-no-red)](https://github.com/theodorechu/flashcard-editor#development)
+[![Status](https://img.shields.io/badge/status-not%20ready-orange.svg)](https://appendeditor.com/#installation)
+[![Cost](https://img.shields.io/badge/cost-free-darkgreen.svg)](https://appendeditor.com/#installation)
 [![GitHub issues](https://img.shields.io/github/issues/theodorechu/flashcard-editor.svg)](https://github.com/theodorechu/flashcard-editor/issues/)
 [![Slack](https://img.shields.io/badge/slack-standardnotes-CC2B5E.svg?style=flat&logo=slack)](https://standardnotes.org/slack)
+[![Downloads](https://img.shields.io/github/downloads/theodorechu/flashcard-editor/total.svg)](https://github.com/theodorechu/flashcard-editor/releases)
+[![GitHub Stars](https://img.shields.io/github/stars/theodorechu/flashcard-editor?style=social)](https://github.com/theodorechu/flashcard-editor)
 
 </div>
 
@@ -62,7 +67,7 @@ The instructions for local setup can be found [here](https://docs.standardnotes.
 
 ## License
 
-Copyright (c) Theodore Chu. All Rights Reserved. Licensed under [AGPL-3.0](https://github.com/TheodoreChu/flashcard-editor/blob/master/LICENSE) or later.
+Copyright (c) Theodore Chu. All Rights Reserved. Licensed under [AGPL-3.0](https://github.com/TheodoreChu/flashcard-editor/blob/develop/LICENSE) or later.
 
 ## Further Resources
 
