@@ -71,6 +71,10 @@ Copyright (c) Theodore Chu. All Rights Reserved. Licensed under [AGPL-3.0](https
 
 ## Further Resources
 
-- [GitHub](https://github.com/theodorechu/flashcard-editor)
-- [Docs](https://docs.theochu.com/flashcard-editor)
-- [Contact](https://theochu.com/contact)
+- [GitHub](https://github.com/TheodoreChu/flashcard-editor) for the source code of the Flashcard Editor
+- [GitHub Issues](https://github.com/TheodoreChu/flashcard-editor/issues) for reporting issues concerning the Flashcard Editor
+- [Docs](https://docs.theochu.com/flashcard-editor) for how to use the Flashcard Editor
+- [Contact](https://theochu.com/contact) for how to contact the developer of the Flashcard Editor
+- [Flashcard Editor To do List](https://github.com/TheodoreChu/flashcard-editor/projects/1) for the roadmap of the Flashcard Editor
+- [Standard Notes Slack](https://standardnotes.org/slack) for connecting with the Standard Notes Community
+- [Standard Notes Help](https://standardnotes.org/help) for help with issues related to Standard Notes but unrelated to this editor
